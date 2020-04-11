@@ -6,7 +6,8 @@ public class Item : ScriptableObject
 {
     public string Itemname;
     public GameObject InventoryImages;
-    public virtual void Use()
+    public GameObject SpawnableObjects;
+    public virtual void Use(Item _Item)
     {
         Debug.Log("Use");
     }

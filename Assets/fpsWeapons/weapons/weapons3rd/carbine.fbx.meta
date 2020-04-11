@@ -1,84 +1,202 @@
 fileFormatVersion: 2
 guid: d624f97514cb7d74292928f361784476
-timeCreated: 1473524274
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
-  fileIDToRecycleName:
-    100000: aim
-    100002: base
-    100004: bolt
-    100006: bullet
-    100008: //RootNode
-    100010: clip
-    100012: lens
-    100014: loader
-    100016: scope
-    100018: silencer
-    100020: trigger
-    400000: aim
-    400002: base
-    400004: bolt
-    400006: bullet
-    400008: //RootNode
-    400010: clip
-    400012: lens
-    400014: loader
-    400016: scope
-    400018: silencer
-    400020: trigger
-    2300000: aim
-    2300002: base
-    2300004: bolt
-    2300006: bullet
-    2300008: clip
-    2300010: lens
-    2300012: loader
-    2300014: scope
-    2300016: silencer
-    2300018: trigger
-    3300000: aim
-    3300002: base
-    3300004: bolt
-    3300006: bullet
-    3300008: clip
-    3300010: lens
-    3300012: loader
-    3300014: scope
-    3300016: silencer
-    3300018: trigger
-    4300000: base
-    4300002: aim
-    4300004: bolt
-    4300006: loader
-    4300008: silencer
-    4300010: scope
-    4300012: lens
-    4300014: clip
-    4300016: bullet
-    4300018: trigger
-    7400000: CINEMA_4D_Main
-    9500000: //RootNode
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: aim
+  - first:
+      1: 100002
+    second: base
+  - first:
+      1: 100004
+    second: bolt
+  - first:
+      1: 100006
+    second: bullet
+  - first:
+      1: 100008
+    second: //RootNode
+  - first:
+      1: 100010
+    second: clip
+  - first:
+      1: 100012
+    second: lens
+  - first:
+      1: 100014
+    second: loader
+  - first:
+      1: 100016
+    second: scope
+  - first:
+      1: 100018
+    second: silencer
+  - first:
+      1: 100020
+    second: trigger
+  - first:
+      4: 400000
+    second: aim
+  - first:
+      4: 400002
+    second: base
+  - first:
+      4: 400004
+    second: bolt
+  - first:
+      4: 400006
+    second: bullet
+  - first:
+      4: 400008
+    second: //RootNode
+  - first:
+      4: 400010
+    second: clip
+  - first:
+      4: 400012
+    second: lens
+  - first:
+      4: 400014
+    second: loader
+  - first:
+      4: 400016
+    second: scope
+  - first:
+      4: 400018
+    second: silencer
+  - first:
+      4: 400020
+    second: trigger
+  - first:
+      23: 2300000
+    second: aim
+  - first:
+      23: 2300002
+    second: base
+  - first:
+      23: 2300004
+    second: bolt
+  - first:
+      23: 2300006
+    second: bullet
+  - first:
+      23: 2300008
+    second: clip
+  - first:
+      23: 2300010
+    second: lens
+  - first:
+      23: 2300012
+    second: loader
+  - first:
+      23: 2300014
+    second: scope
+  - first:
+      23: 2300016
+    second: silencer
+  - first:
+      23: 2300018
+    second: trigger
+  - first:
+      33: 3300000
+    second: aim
+  - first:
+      33: 3300002
+    second: base
+  - first:
+      33: 3300004
+    second: bolt
+  - first:
+      33: 3300006
+    second: bullet
+  - first:
+      33: 3300008
+    second: clip
+  - first:
+      33: 3300010
+    second: lens
+  - first:
+      33: 3300012
+    second: loader
+  - first:
+      33: 3300014
+    second: scope
+  - first:
+      33: 3300016
+    second: silencer
+  - first:
+      33: 3300018
+    second: trigger
+  - first:
+      43: 4300000
+    second: base
+  - first:
+      43: 4300002
+    second: aim
+  - first:
+      43: 4300004
+    second: bolt
+  - first:
+      43: 4300006
+    second: loader
+  - first:
+      43: 4300008
+    second: silencer
+  - first:
+      43: 4300010
+    second: scope
+  - first:
+      43: 4300012
+    second: lens
+  - first:
+      43: 4300014
+    second: clip
+  - first:
+      43: 4300016
+    second: bullet
+  - first:
+      43: 4300018
+    second: trigger
+  - first:
+      74: 7400000
+    second: CINEMA_4D_Main
+  - first:
+      95: 9500000
+    second: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 3d32cca9220dee64c9dd7e5d539fba28, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -86,13 +204,23 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 0
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -102,9 +230,14 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -114,11 +247,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

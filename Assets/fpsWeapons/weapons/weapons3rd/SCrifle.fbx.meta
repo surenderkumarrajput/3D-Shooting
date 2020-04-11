@@ -1,43 +1,106 @@
 fileFormatVersion: 2
 guid: d3907d6924c554347bd94e81bd743d6e
-timeCreated: 1493318374
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
-  fileIDToRecycleName:
-    100000: base
-    100002: bolt
-    100004: bullet
-    100006: clip
-    100008: //RootNode
-    100010: trigger
-    400000: base
-    400002: bolt
-    400004: bullet
-    400006: clip
-    400008: //RootNode
-    400010: trigger
-    2300000: base
-    2300002: bolt
-    2300004: bullet
-    2300006: clip
-    2300008: trigger
-    3300000: base
-    3300002: bolt
-    3300004: bullet
-    3300006: clip
-    3300008: trigger
-    4300000: base
-    4300002: trigger
-    4300004: bolt
-    4300006: clip
-    4300008: bullet
-    7400000: CINEMA_4D_Main
-    9500000: //RootNode
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: base
+  - first:
+      1: 100002
+    second: bolt
+  - first:
+      1: 100004
+    second: bullet
+  - first:
+      1: 100006
+    second: clip
+  - first:
+      1: 100008
+    second: //RootNode
+  - first:
+      1: 100010
+    second: trigger
+  - first:
+      4: 400000
+    second: base
+  - first:
+      4: 400002
+    second: bolt
+  - first:
+      4: 400004
+    second: bullet
+  - first:
+      4: 400006
+    second: clip
+  - first:
+      4: 400008
+    second: //RootNode
+  - first:
+      4: 400010
+    second: trigger
+  - first:
+      23: 2300000
+    second: base
+  - first:
+      23: 2300002
+    second: bolt
+  - first:
+      23: 2300004
+    second: bullet
+  - first:
+      23: 2300006
+    second: clip
+  - first:
+      23: 2300008
+    second: trigger
+  - first:
+      33: 3300000
+    second: base
+  - first:
+      33: 3300002
+    second: bolt
+  - first:
+      33: 3300004
+    second: bullet
+  - first:
+      33: 3300006
+    second: clip
+  - first:
+      33: 3300008
+    second: trigger
+  - first:
+      43: 4300000
+    second: base
+  - first:
+      43: 4300002
+    second: trigger
+  - first:
+      43: 4300004
+    second: bolt
+  - first:
+      43: 4300006
+    second: clip
+  - first:
+      43: 4300008
+    second: bullet
+  - first:
+      74: 7400000
+    second: CINEMA_4D_Main
+  - first:
+      95: 9500000
+    second: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scar
+    second: {fileID: 2100000, guid: 8531c2d5975fd5444bc0a85d79a533d7, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -50,26 +113,39 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 2
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -79,10 +155,14 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -92,14 +172,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 2
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

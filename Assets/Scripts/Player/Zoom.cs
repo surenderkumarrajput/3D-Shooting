@@ -18,7 +18,7 @@ public class Zoom : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             FOV -= rate;
-            crosshair.SetActive(true);
+           crosshair.SetActive(true);
         }
         else
         {

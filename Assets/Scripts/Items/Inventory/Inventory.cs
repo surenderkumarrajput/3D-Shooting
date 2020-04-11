@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public delegate void OnitemChanged();
+    public OnitemChanged onitemChangedCallback;
     public List<InventorySlot> Container = new List<InventorySlot>();
     public void Add(Item _item,int _amount)
     {

@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class InventoryDisplay : MonoBehaviour
 {
-    Inventory inventory;
+    public Inventory inventory;
     Dictionary<InventorySlot, GameObject> dic = new Dictionary<InventorySlot, GameObject>();
     void Start()
     {
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        inventory.onitemChangedCallback += UpdateDisplay;
     }
 
     void Update()
