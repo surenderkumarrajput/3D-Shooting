@@ -8,44 +8,55 @@ public class PlayerController : MonoBehaviour
     public float XSensitivity;
     [HideInInspector]
     float CurrentMoveSpeed;
-    [HideInInspector]
     public float Speed;
     public float jumpSpeed;
     float dummySpeed;
-    [HideInInspector]
     public float RunningSpeed;
     public float YSensitivity;
     float XRotation = 0f;
 
     public int selectedWeapon = 0;
 
+    public delegate void OnplayerDeath();
+    public static OnplayerDeath Playerdeath;
+
     Animator anim;
     public List<GameObject> WeaponList=new List<GameObject>();
 
     Inventory inventory;
-
+    HealthSystems healthSystems;
     bool canRun;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         CurrentMoveSpeed = Speed;
-        anim = GetComponent<Animator>();
         inventory = GetComponent<Inventory>();
         transform.GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(0, 0, 0);
+        healthSystems = GetComponent<HealthSystems>();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("Finish"))
+        if (hit.gameObject.CompareTag("Weapon"))
         {
             var item = hit.gameObject.GetComponent<ItemScript>();
-            inventory.Add(item.item, 1);
+            inventory.Add(item.item, item.item.Amount);
+            Destroy(hit.gameObject);
+        }
+        if(hit.gameObject.CompareTag("Ammo"))
+        {
+            var item = hit.gameObject.GetComponent<ItemScript>();
+            inventory.Add(item.item, item.item.Amount);
             Destroy(hit.gameObject);
         }
     }
     void Update()
     {
+        if (healthSystems.CurrentHealth<=0)
+        {
+            Playerdeath();
+        }
         #region Movements
         //Inputs
         var horizontal = Input.GetAxisRaw("Horizontal");
@@ -55,7 +66,7 @@ public class PlayerController : MonoBehaviour
         Vector3 move_z = transform.forward * vertical;
         Vector3 movedir = (move_horizontal + move_z).normalized * CurrentMoveSpeed * Time.deltaTime;
         //Gravity
-        movedir.y = -9.8f * Time.deltaTime;
+     //   movedir.y = -7f * Time.deltaTime;
         //Jump
         if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
         {
@@ -65,6 +76,10 @@ public class PlayerController : MonoBehaviour
                 movedir.y = _jump;
                 _jump -= Time.deltaTime;
             }   while (!characterController.isGrounded);
+        }
+        else
+        {
+            movedir += Physics.gravity * 1 * Time.deltaTime;
         }
         //Setting speed for animation
         var magnitude = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;
@@ -93,7 +108,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        anim.SetFloat("Speed", dummySpeed);
         float Xroattion = Input.GetAxis("MouseY") * YSensitivity * Time.deltaTime;
         XRotation -= Xroattion;
         Xroattion = Mathf.Clamp(XRotation, -90, 90);
@@ -137,7 +151,6 @@ public class PlayerController : MonoBehaviour
             spawnpoint.y = hit.point.y + go.transform.localScale.y * 0.5f;
         }
         go.transform.position = spawnpoint;
-
     }
     public void HolsterWeapon()
     {
@@ -147,6 +160,7 @@ public class PlayerController : MonoBehaviour
             if (i == selectedWeapon)
             {
                 WeaponList[i].SetActive(true);
+                WeaponList[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
                 anim = WeaponList[i].GetComponent<Animator>();
             }
             else

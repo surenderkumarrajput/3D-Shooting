@@ -3,9 +3,10 @@
 public class Weapons : Item
 {
     public float Damage;
-    public float Bullets;
-    public float Range; 
-    
+    public float MaxBullets;
+    public float Range;
+    public float FireRate;
+    public float TotalBullets = 0;
     public GameObject Model;
     GameObject go;
     public override void Use(Item _Item)

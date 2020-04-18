@@ -6,7 +6,14 @@ public class SelectionScript : MonoBehaviour
 {
     public void isSelected(Item item)
     {
-        InfoDisplay.instance.selected = true;
-        InfoDisplay.instance.item = item;
+        if(item==null)
+        {
+            return;
+        }
+        else
+        {
+            InfoDisplay.instance.selected = true;
+            InfoDisplay.instance.item = item;
+        }
     }
 }
