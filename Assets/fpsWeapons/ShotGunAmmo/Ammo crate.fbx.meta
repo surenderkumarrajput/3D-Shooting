@@ -3,7 +3,22 @@ guid: dad448b95350b5245a02fe40522f3506
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ammo_Box_Main
+    second: {fileID: 2100000, guid: ea1fb638e845f2347a11f79bcdf61a08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ammo_Box_Metal
+    second: {fileID: 2100000, guid: 7ed5e1d514b4fd54794951b30733bb63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ammo_Box_Text
+    second: {fileID: 2100000, guid: 4796ca5beea1d1945aec0d5b8be53a67, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -36,7 +51,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 2
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1

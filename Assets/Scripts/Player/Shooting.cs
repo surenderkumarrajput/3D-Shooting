@@ -1,5 +1,4 @@
-﻿using Mirror.Examples;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -39,7 +38,7 @@ public class Shooting : MonoBehaviour
             StartCoroutine(ShootingFunction(weapons.Range));
             TimebetweenFire = Time.time + 1 / weapons.FireRate;
         }
-        if((Input.GetKeyDown(KeyCode.R)&&((CurrentAmmo < weapons.MaxBullets) || (CurrentAmmo <= 0))&&weapons.TotalBullets>0))
+        if(((Input.GetKeyDown(KeyCode.R)&&((CurrentAmmo < weapons.MaxBullets) || (CurrentAmmo <= 0)))&&weapons.TotalBullets>0))
         {
             StartCoroutine(Reloading());
             return;

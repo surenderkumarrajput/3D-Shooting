@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     public float Range,SpottingRange;
     public float Damage;
     public float TimeBetweenFiring;
-    public float FireRate;
+    public float FireRate,SpawnPointsRate;
     public float Waittime;
     public float MinX, MaxX;
     public float MinZ, MaxZ;
@@ -53,8 +53,11 @@ public class EnemyController : MonoBehaviour
     {
         if(HealthSystems.CurrentHealth<=0)
         {
-            isAlive = false;
             anim.SetTrigger("Death");
+            navmeshAgent.ResetPath();
+            anim.SetFloat("Speed", 0);
+            anim.ResetTrigger("NormalShoot");
+            isAlive = false;
             Destroy(gameObject,3f);
         }
         if(isAlive)
@@ -69,8 +72,8 @@ public class EnemyController : MonoBehaviour
                     }
                 case States.Running:
                 {
-                     navmeshAgent.SetDestination(playerController.GetComponent<Transform>().position);
-                     break;
+                        navmeshAgent.SetDestination(playerController.GetComponent<Transform>().position);
+                        break;
                 }
                 case States.Attacking:
                     {
@@ -93,14 +96,16 @@ public class EnemyController : MonoBehaviour
                     }
                 case States.Patroling:
                 {
-                      navmeshAgent.SetDestination(PatrolPoints);
-                      if (Vector3.Distance(transform.position, playerController.GetComponent<Transform>().position) <= 0.2f )
-                      {
-                         StartCoroutine(EnemyPatrolPoints());
-                      }
-                      break;
+                        if(Time.time>=Waittime)
+                        {
+                            Waittime = Time.time+1/SpawnPointsRate;
+                            EnemyPatrolPoints();
+                        }
+                        navmeshAgent.SetDestination(PatrolPoints);
+                        break;
                 }
             }
+            anim.SetFloat("Speed", navmeshAgent.velocity.magnitude, .1f, Time.deltaTime);
             #endregion
             #region Follow
             Collider[] collider = Physics.OverlapSphere(trigger.transform.position, SpottingRange);
@@ -117,11 +122,10 @@ public class EnemyController : MonoBehaviour
             }
             #endregion
             //Shooting
-            else if (Vector3.Distance(transform.position, playerController.GetComponent<Transform>().position) <= navmeshAgent.stoppingDistance)
+            if (Vector3.Distance(transform.position, playerController.GetComponent<Transform>().position) <= navmeshAgent.stoppingDistance)
             {
                 states = States.Attacking;
             }
-            anim.SetFloat("Speed", navmeshAgent.velocity.magnitude, .1f, Time.deltaTime);
         }
     }
     private void OnDrawGizmosSelected()
@@ -134,11 +138,12 @@ public class EnemyController : MonoBehaviour
     public void StopEnemyMovements()
     {
         isAlive = false;
+       
     }
-    IEnumerator EnemyPatrolPoints()
+    void EnemyPatrolPoints()
     {
         PatrolPoints = new Vector3(MovePoints.position.x + Random.Range(MinX, MaxX), 0, MovePoints.position.z + Random.Range(MinZ, MaxZ));
-        yield return new WaitForSeconds(Waittime);
+        Debug.Log(PatrolPoints);
     }
     IEnumerator IdleToPatrol()
     {
