@@ -53,11 +53,8 @@ public class EnemyController : MonoBehaviour
     {
         if(HealthSystems.CurrentHealth<=0)
         {
-            anim.SetTrigger("Death");
-            navmeshAgent.ResetPath();
-            anim.SetFloat("Speed", 0);
-            anim.ResetTrigger("NormalShoot");
             isAlive = false;
+            anim.SetTrigger("Death");
             Destroy(gameObject,3f);
         }
         if(isAlive)
@@ -91,6 +88,7 @@ public class EnemyController : MonoBehaviour
                                 Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
                                 TimeBetweenFiring = Time.time + 1 / FireRate;
                             }
+                            Instantiate(MuzzleFlashEffect, trigger.position, Quaternion.identity);
                         }
                         break;
                     }
@@ -127,6 +125,12 @@ public class EnemyController : MonoBehaviour
                 states = States.Attacking;
             }
         }
+        if(!isAlive)
+        {
+            navmeshAgent.ResetPath();
+            anim.SetFloat("Speed", 0);
+            anim.ResetTrigger("NormalShoot");
+        }
     }
     private void OnDrawGizmosSelected()
     {
@@ -138,21 +142,15 @@ public class EnemyController : MonoBehaviour
     public void StopEnemyMovements()
     {
         isAlive = false;
-       
     }
     void EnemyPatrolPoints()
     {
         PatrolPoints = new Vector3(MovePoints.position.x + Random.Range(MinX, MaxX), 0, MovePoints.position.z + Random.Range(MinZ, MaxZ));
-        Debug.Log(PatrolPoints);
     }
     IEnumerator IdleToPatrol()
     {
         states = States.IDLE;
         yield return new WaitForSeconds(5f);
         states = States.Patroling;
-    }
-    public void MuzzleFlash()
-    {
-        Instantiate(MuzzleFlashEffect, trigger.position, Quaternion.identity);
     }
 }
