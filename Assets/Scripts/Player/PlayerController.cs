@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     public List<GameObject> WeaponList=new List<GameObject>();
 
+    public Transform CameraTransform;
     Inventory inventory;
     HealthSystems healthSystems;
     bool canRun;
@@ -111,7 +112,7 @@ public class PlayerController : MonoBehaviour
         float Xroattion = Input.GetAxis("MouseY") * YSensitivity * Time.deltaTime;
         XRotation -= Xroattion;
         Xroattion = Mathf.Clamp(XRotation, -90, 90);
-        transform.GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(Xroattion, 0, 0);
+        CameraTransform.localRotation = Quaternion.Euler(Xroattion, 0, 0);
         #endregion
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {

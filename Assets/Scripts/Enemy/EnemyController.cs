@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 public enum States
@@ -20,8 +18,8 @@ public class EnemyController : MonoBehaviour
     public float MinX, MaxX;
     public float MinZ, MaxZ;
 
-    public GameObject BloodImpact;
-    public GameObject MuzzleFlashEffect;
+  //  public GameObject BloodImpact;
+  //  public GameObject MuzzleFlashEffect;
 
     HealthSystems HealthSystems;
 
@@ -59,6 +57,11 @@ public class EnemyController : MonoBehaviour
         }
         if(isAlive)
         {
+            //Shooting
+            if (Vector3.Distance(transform.position, playerController.GetComponent<Transform>().position) <= navmeshAgent.stoppingDistance)
+            {
+                states = States.Attacking;
+            }
             #region AI
             switch (states)
             {
@@ -85,10 +88,10 @@ public class EnemyController : MonoBehaviour
                             {
                                 anim.SetTrigger("NormalShoot");
                                 hit.collider.GetComponent<HealthSystems>().DecreaseHealth(Damage);
-                                Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
+                             //   Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
                                 TimeBetweenFiring = Time.time + 1 / FireRate;
                             }
-                            Instantiate(MuzzleFlashEffect, trigger.position, Quaternion.identity);
+                         //   Instantiate(MuzzleFlashEffect, trigger.position, Quaternion.identity);
                         }
                         break;
                     }
@@ -119,11 +122,6 @@ public class EnemyController : MonoBehaviour
                 StartCoroutine(IdleToPatrol());
             }
             #endregion
-            //Shooting
-            if (Vector3.Distance(transform.position, playerController.GetComponent<Transform>().position) <= navmeshAgent.stoppingDistance)
-            {
-                states = States.Attacking;
-            }
         }
         if(!isAlive)
         {

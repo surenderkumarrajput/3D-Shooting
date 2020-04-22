@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using EZCameraShake;
 public class Shooting : MonoBehaviour
 {
     public Weapons weapons;
-
     public Ammo ammo;
 
     Animator animator;
@@ -17,7 +16,8 @@ public class Shooting : MonoBehaviour
     public float CurrentAmmo=0;
     public float ReloadTime;
 
-    public GameObject MuzzleFlash;
+
+   // public GameObject MuzzleFlash;
 
     bool isReloading;
 
@@ -38,7 +38,7 @@ public class Shooting : MonoBehaviour
             StartCoroutine(ShootingFunction(weapons.Range));
             TimebetweenFire = Time.time + 1 / weapons.FireRate;
         }
-        if(((Input.GetKeyDown(KeyCode.R)&&((CurrentAmmo < weapons.MaxBullets) || (CurrentAmmo <= 0)))&&weapons.TotalBullets>0))
+        if(Input.GetKeyDown(KeyCode.R)&&(CurrentAmmo<weapons.MaxBullets&&weapons.TotalBullets>0))
         {
             StartCoroutine(Reloading());
             return;
@@ -56,6 +56,7 @@ public class Shooting : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
                 hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
+                CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
             }
         }
         for (int i = 0; i < inventory.Container.Count; i++)
@@ -66,7 +67,7 @@ public class Shooting : MonoBehaviour
             }
         }
         CurrentAmmo--;
-        Instantiate(MuzzleFlash, transform.position, Quaternion.identity);
+      //  Instantiate(MuzzleFlash, transform.position, Quaternion.identity);
     }
     IEnumerator Reloading()
     {
