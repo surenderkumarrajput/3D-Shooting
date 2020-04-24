@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using EZCameraShake;
+using UnityEngine.UI;
+
 public enum States
 {
     IDLE,Attacking,Running,Patroling
@@ -19,7 +22,7 @@ public class EnemyController : MonoBehaviour
     public float MinZ, MaxZ;
 
   //  public GameObject BloodImpact;
-  //  public GameObject MuzzleFlashEffect;
+    public GameObject MuzzleFlash;
 
     HealthSystems HealthSystems;
 
@@ -28,7 +31,9 @@ public class EnemyController : MonoBehaviour
     public Transform trigger,Centre;
     public Transform MovePoints;
 
-    States states;
+    public Image HealthImage;
+
+    public States states;
 
     Animator anim;
 
@@ -49,6 +54,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        HealthImage.fillAmount = HealthSystems.CurrentHealth / HealthSystems.MaxHealth;
         if(HealthSystems.CurrentHealth<=0)
         {
             isAlive = false;
@@ -80,18 +86,10 @@ public class EnemyController : MonoBehaviour
                         var Vector = (playerController.GetComponent<Transform>().position - transform.position).normalized;
                         Quaternion LookRotation = Quaternion.LookRotation(new Vector3(Vector.x, 0, Vector.z));
                         transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, Time.deltaTime * 10f);
-                        Ray ray = new Ray(Centre.transform.position,Centre.transform.forward);
-                        RaycastHit hit;
-                        if (Physics.Raycast(ray, out hit, Range) && Time.time >= TimeBetweenFiring)
+                        if(Time.time >= TimeBetweenFiring)
                         {
-                            if (hit.collider.gameObject.CompareTag("Player"))
-                            {
-                                anim.SetTrigger("NormalShoot");
-                                hit.collider.GetComponent<HealthSystems>().DecreaseHealth(Damage);
-                             //   Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
-                                TimeBetweenFiring = Time.time + 1 / FireRate;
-                            }
-                         //   Instantiate(MuzzleFlashEffect, trigger.position, Quaternion.identity);
+                            anim.SetTrigger("NormalShoot");
+                            TimeBetweenFiring = Time.time + 1 / FireRate;
                         }
                         break;
                     }
@@ -130,12 +128,30 @@ public class EnemyController : MonoBehaviour
             anim.ResetTrigger("NormalShoot");
         }
     }
+    public void Shoot()
+    {
+        Ray ray = new Ray(Centre.transform.position, Centre.transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Range) )
+        {
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                hit.collider.GetComponent<HealthSystems>().DecreaseHealth(Damage);
+                CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
+                // Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
+            }
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, Range);
         Gizmos.color = Color.red;
         Vector3 direction = transform.TransformDirection(Vector3.forward) * Range;
         Gizmos.DrawRay(Centre.transform.position, direction);
+    }
+    public void MuzzleFlashEffect()
+    {
+        Instantiate(MuzzleFlash, trigger.position, transform.rotation);
     }
     public void StopEnemyMovements()
     {

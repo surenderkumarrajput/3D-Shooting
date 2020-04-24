@@ -17,7 +17,7 @@ public class HealthSystems : MonoBehaviour
     }
     public void IncreaseHealth(float Health)
     {
-        CurrentHealth -= Health;
+        CurrentHealth += Health;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
     }
 }

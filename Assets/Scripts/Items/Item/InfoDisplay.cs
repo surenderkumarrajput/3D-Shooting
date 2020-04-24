@@ -16,6 +16,7 @@ public class InfoDisplay : MonoBehaviour
         PlayerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         inventory= GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
+   
     public void Use()
     {
         if(selected==true)

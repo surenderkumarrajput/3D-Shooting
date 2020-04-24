@@ -19,11 +19,8 @@ public class Weapons : Item
         }
         else
         {
-            foreach (var item in PlayerWeapons.GetComponent<PlayerController>().WeaponList)
-            {
-                item.SetActive(false);
-            }
             go = Instantiate(Model, Camera.main.transform);
+            go.SetActive(false);
             PlayerWeapons.GetComponent<PlayerController>().WeaponList.Add(go);
         }
       

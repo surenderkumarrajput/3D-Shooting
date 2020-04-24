@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using EZCameraShake;
+using System.Runtime.InteropServices.WindowsRuntime;
+
 public class Shooting : MonoBehaviour
 {
     public Weapons weapons;
@@ -17,7 +19,7 @@ public class Shooting : MonoBehaviour
     public float ReloadTime;
 
 
-   // public GameObject MuzzleFlash;
+   public GameObject MuzzleFlash;
 
     bool isReloading;
 
@@ -27,13 +29,10 @@ public class Shooting : MonoBehaviour
         CurrentAmmo = weapons.MaxBullets;
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
+    
     void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
-        if(Input.GetMouseButton(0) && Time.time >= TimebetweenFire && CurrentAmmo>0&&!isReloading)
+        if (Input.GetMouseButton(0) && Time.time >= TimebetweenFire && CurrentAmmo>0&&!isReloading&&!MouseoveronGUI())
         {
             StartCoroutine(ShootingFunction(weapons.Range));
             TimebetweenFire = Time.time + 1 / weapons.FireRate;
@@ -42,6 +41,13 @@ public class Shooting : MonoBehaviour
         {
             StartCoroutine(Reloading());
             return;
+        }
+        foreach (var item in inventory.Container)
+        {
+            if (item.item == ammo)
+            {
+                weapons.TotalBullets = item.amount;
+            }
         }
         CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0, weapons.MaxBullets);
     }
@@ -59,15 +65,8 @@ public class Shooting : MonoBehaviour
                 CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
             }
         }
-        for (int i = 0; i < inventory.Container.Count; i++)
-        {
-            if (inventory.Container[i].item == ammo)
-            {
-                weapons.TotalBullets = inventory.Container[i].amount;
-            }
-        }
+        Instantiate(MuzzleFlash, transform.position, transform.rotation);
         CurrentAmmo--;
-      //  Instantiate(MuzzleFlash, transform.position, Quaternion.identity);
     }
     IEnumerator Reloading()
     {
@@ -86,6 +85,22 @@ public class Shooting : MonoBehaviour
                 inventory.Container[i].amount = (int)weapons.TotalBullets;
             }
         }
+    }
+   public bool MouseoveronGUI()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> raycastresult = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raycastresult);
+        for (int i = 0; i < raycastresult.Count; i++)
+        {
+            if(raycastresult[i].gameObject.GetComponent<PassThroughClick>()!=null)
+            {
+                raycastresult.RemoveAt(i);
+                i--;
+            }
+        }
+        return raycastresult.Count>0;
     }
     private void OnDrawGizmosSelected()
     {

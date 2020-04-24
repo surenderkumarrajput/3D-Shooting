@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aad7037d27f3e64285cfe8e9c4fb973, type: 3}
+  m_Name: Medkit
+  m_EditorClassIdentifier: 
+  Itemname: MedKit
+  Amount: 1
+  InventoryImages: {fileID: 1236320747515717923, guid: e663be071aec7034794dc64ac5c86ed1,
+    type: 3}
+  SpawnableObjects: {fileID: 1131963238510797671, guid: 2f8ecfa723917ec47a509bb9daed47ab,
+    type: 3}
+  healthIncrease: 50

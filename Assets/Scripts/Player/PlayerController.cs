@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
 public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
@@ -14,20 +17,28 @@ public class PlayerController : MonoBehaviour
     public float RunningSpeed;
     public float YSensitivity;
     float XRotation = 0f;
+    float ElapsedTime=0f, FixedTime = 5f;
 
     public int selectedWeapon = 0;
 
     public delegate void OnplayerDeath();
     public static OnplayerDeath Playerdeath;
 
+    public Image HealthImage;
+
     Animator anim;
+
     public List<GameObject> WeaponList=new List<GameObject>();
 
     public Transform CameraTransform;
+
+    public TextMeshProUGUI BulletCount;
+
     Inventory inventory;
     HealthSystems healthSystems;
     bool canRun;
 
+    Color FadeColor;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -39,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("Weapon"))
+        if (hit.gameObject.CompareTag("Weapon")|| hit.gameObject.CompareTag("Medkits"))
         {
             var item = hit.gameObject.GetComponent<ItemScript>();
             inventory.Add(item.item, item.item.Amount);
@@ -54,6 +65,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        HealthImage.fillAmount = healthSystems.CurrentHealth / healthSystems.MaxHealth;
         if (healthSystems.CurrentHealth<=0)
         {
             Playerdeath();
@@ -100,7 +112,6 @@ public class PlayerController : MonoBehaviour
         //CharacterController Move 
         characterController.Move(movedir);
         //Rotation of Player
-        transform.Rotate(0, Input.GetAxisRaw("MouseX") * XSensitivity * Time.deltaTime, 0);
         if (!canRun)
         {
             if (dummySpeed > 0.5f)
@@ -108,11 +119,13 @@ public class PlayerController : MonoBehaviour
                 dummySpeed = 0.5f;
             }
         }
+        transform.Rotate(0, Input.GetAxisRaw("MouseX") * XSensitivity * Time.deltaTime, 0);
 
         float Xroattion = Input.GetAxis("MouseY") * YSensitivity * Time.deltaTime;
         XRotation -= Xroattion;
-        Xroattion = Mathf.Clamp(XRotation, -90, 90);
-        CameraTransform.localRotation = Quaternion.Euler(Xroattion, 0, 0);
+        XRotation = Mathf.Clamp(XRotation, -90, 90);
+        CameraTransform.localRotation = Quaternion.Euler(XRotation, 0, 0);
+
         #endregion
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
@@ -136,10 +149,22 @@ public class PlayerController : MonoBehaviour
           {
              selectedWeapon--;
           }
-             HolsterWeapon();
+            HolsterWeapon();
         }
+        BulletCountUpdate();
     }
 
+    private void BulletCountUpdate()
+    {
+        if(WeaponList[selectedWeapon].GetComponentInChildren<Shooting>()!=null)
+        {
+            BulletCount.text = WeaponList[selectedWeapon].GetComponentInChildren<Shooting>().CurrentAmmo.ToString() + " / " + WeaponList[selectedWeapon].GetComponentInChildren<Shooting>().weapons.TotalBullets.ToString();
+        }
+        else
+        {
+            BulletCount.text = "0 / 0";
+        }
+    }
     public void Spawn(GameObject obj)
     {
         var go = Instantiate(obj as GameObject);
@@ -153,7 +178,7 @@ public class PlayerController : MonoBehaviour
         }
         go.transform.position = spawnpoint;
     }
-    public void HolsterWeapon()
+    private void HolsterWeapon()
     {
         int i = 0;
         foreach (var item in WeaponList)
