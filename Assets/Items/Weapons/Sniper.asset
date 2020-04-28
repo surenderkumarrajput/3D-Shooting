@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f2b80f75964604b917e4790e58e142, type: 3}
+  m_Name: Sniper
+  m_EditorClassIdentifier: 
+  Itemname: Sniper
+  Amount: 1
+  InventoryImages: {fileID: 1688611578954735170, guid: c76072e9ce536b6438f6cc0d00e79f29,
+    type: 3}
+  SpawnableObjects: {fileID: 6330963530050074275, guid: ad008f9c71d8bf940ab101859816e29d,
+    type: 3}
+  Damage: 100
+  MaxBullets: 5
+  Range: 100
+  FireRate: 2
+  TotalBullets: 1
+  Model: {fileID: 8480980337897093932, guid: 28d80e7ff7b599645809e3d2cc851b14, type: 3}

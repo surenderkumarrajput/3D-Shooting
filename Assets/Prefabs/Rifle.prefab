@@ -812,6 +812,7 @@ GameObject:
   - component: {fileID: 17682998434411437}
   - component: {fileID: 17682998433984394}
   - component: {fileID: -2629281542429499109}
+  - component: {fileID: -4166323085681211160}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Arms
@@ -871,6 +872,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 47c22dca7e6a9d5419416771fc631e99, type: 2}
+--- !u!114 &-4166323085681211160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17682998433984397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beccf01818aa26140ac747c6c0f2c471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rate: 1.5
+  Min_FOV: 40
+  Crosshair_Name: Crosshair
 --- !u!1 &17682998433984399
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,5 +2349,6 @@ MonoBehaviour:
   ammo: {fileID: 11400000, guid: 2c1f59be35c921d4ebc740824d1dd95c, type: 2}
   CurrentAmmo: 0
   ReloadTime: 1.5
+  TimebtwMuzzleFlash: 0.5
   MuzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
     type: 3}

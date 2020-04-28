@@ -17,7 +17,14 @@ public class UImanager : MonoBehaviour
     {
         Inventory.SetActive(false);
         ImageColorRef = DamageImage.color;
-        playerController = GameObject.FindGameObjectWithTag("Player");
+        if(GameObject.FindGameObjectWithTag("Player")==null)
+        {
+            return;
+        }
+        else
+        {
+            playerController = GameObject.FindGameObjectWithTag("Player");
+        }
         Alpha = DamageImage.color.a;
     }
     void Update()
@@ -30,13 +37,20 @@ public class UImanager : MonoBehaviour
         {
             Inventory.SetActive(false);
         }
-         if (playerController.GetComponent<HealthSystems>().CurrentHealth < 30)
-         {
-            Alpha = 255;
-         }
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            return;
+        }
         else
         {
-            Alpha -= Alpha*AlphaMultiplier* Time.deltaTime;
+            if (playerController.GetComponent<HealthSystems>().CurrentHealth < 30)
+            {
+                Alpha = 255;
+            }
+            else
+            {
+                Alpha -= Alpha * AlphaMultiplier * Time.deltaTime;
+            }
         }
         ImageColorRef.a = Alpha;
         DamageImage.color = ImageColorRef;

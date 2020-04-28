@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1100753036637045660}
   - component: {fileID: 1100753036637045658}
   - component: {fileID: 1100753036637045661}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1100753036947283253}
   - component: {fileID: 1100753036947283252}
   - component: {fileID: 1100753036947283251}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 1100753037302287405}
   - component: {fileID: 1100753037302287403}
   - component: {fileID: 1100753037302287402}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HealthBarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1100753037319504476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WayPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1591,7 +1591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6886608205126796546}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -3049,12 +3049,16 @@ MonoBehaviour:
   MaxX: 10
   MinZ: -10
   MaxZ: 10
+  BloodImpact: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc,
+    type: 3}
   MuzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
     type: 3}
+  Death_Effect: {fileID: 0}
   trigger: {fileID: 1972402046729348622}
   Centre: {fileID: 1972402046656080388}
   MovePoints: {fileID: 1100753037319504476}
   HealthImage: {fileID: 1100753036637045661}
+  states: 0
   playerController: {fileID: 0}
 --- !u!195 &7684909116722052927
 NavMeshAgent:

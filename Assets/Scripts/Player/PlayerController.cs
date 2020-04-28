@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            movedir += Physics.gravity * 1 * Time.deltaTime;
+            movedir += Physics.gravity * Time.deltaTime;
         }
         //Setting speed for animation
         var magnitude = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;

@@ -8,7 +8,7 @@ public class Weapons : Item
     public float FireRate;
     public float TotalBullets = 0;
     public GameObject Model;
-    GameObject go;
+    private GameObject go;
     public override void Use(Item _Item)
     {
         var PlayerWeapons = GameObject.FindGameObjectWithTag("Player");
@@ -19,7 +19,7 @@ public class Weapons : Item
         }
         else
         {
-            go = Instantiate(Model, Camera.main.transform);
+            go = Instantiate(Model, GameObject.Find("CamHolder").GetComponent<Transform>());
             go.SetActive(false);
             PlayerWeapons.GetComponent<PlayerController>().WeaponList.Add(go);
         }

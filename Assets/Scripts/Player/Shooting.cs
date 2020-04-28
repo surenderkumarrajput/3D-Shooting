@@ -10,18 +10,18 @@ public class Shooting : MonoBehaviour
     public Weapons weapons;
     public Ammo ammo;
 
-    Animator animator;
+    private Animator animator;
 
-    Inventory inventory;
+    private Inventory inventory;
 
-    float TimebetweenFire;
+    private float TimebetweenFire;
     public float CurrentAmmo=0;
     public float ReloadTime;
+    public float TimebtwMuzzleFlash;
 
+    public GameObject MuzzleFlash;
 
-   public GameObject MuzzleFlash;
-
-    bool isReloading;
+    private bool isReloading;
 
     private void Start()
     {
@@ -54,7 +54,7 @@ public class Shooting : MonoBehaviour
     IEnumerator ShootingFunction(float Range)
     {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(TimebtwMuzzleFlash);
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,Range))

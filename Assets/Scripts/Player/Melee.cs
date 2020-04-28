@@ -8,7 +8,9 @@ public class Melee : MonoBehaviour
 
     public Weapons weapon;
 
-    float TimebetweenFiring;
+    public Transform Knife_pos;
+
+    private float TimebetweenFiring;
 
     Animator animator;
 
@@ -18,14 +20,9 @@ public class Melee : MonoBehaviour
     }
     void Update()
     {
-        Collider[] collider = Physics.OverlapSphere(transform.position, weapon.Range, Layers);
         if(Input.GetMouseButton(0)&&Time.time>=TimebetweenFiring&&!MouseoveronGUI())
         {
             animator.SetTrigger("Attack");
-            foreach (var Temp in collider)
-            {
-                Temp.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapon.Damage);
-            }
             TimebetweenFiring = Time.time + 1 / weapon.FireRate;
         }
     }
@@ -45,8 +42,16 @@ public class Melee : MonoBehaviour
         }
         return raycastresult.Count > 0;
     }
+    public void MeleeAttack()
+    {
+        Collider[] collider = Physics.OverlapSphere(Knife_pos.position, weapon.Range, Layers);
+        foreach (var Temp in collider)
+        {
+            Temp.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapon.Damage);
+        }
+    }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position,weapon.Range);
+        Gizmos.DrawWireSphere(Knife_pos.position,weapon.Range);
     }
 }

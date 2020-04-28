@@ -1327,12 +1327,16 @@ MonoBehaviour:
   MaxX: 10
   MinZ: -10
   MaxZ: 10
+  BloodImpact: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc,
+    type: 3}
   MuzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
     type: 3}
+  Death_Effect: {fileID: 0}
   trigger: {fileID: 2936806082175062391}
   Centre: {fileID: 2936806081123455500}
   MovePoints: {fileID: 2936806080837472662}
   HealthImage: {fileID: 2936806081775933948}
+  states: 0
   playerController: {fileID: 0}
 --- !u!114 &1834056469990587754
 MonoBehaviour:
@@ -1712,7 +1716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2936806080837472662}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WayPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1774,7 +1778,7 @@ GameObject:
   - component: {fileID: 2936806081775933951}
   - component: {fileID: 2936806081775933949}
   - component: {fileID: 2936806081775933948}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1845,7 +1849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2936806081976903652}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CyBorg
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1881,7 +1885,7 @@ GameObject:
   - component: {fileID: 2936806082074884632}
   - component: {fileID: 2936806082074884635}
   - component: {fileID: 2936806082074884634}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2025,7 @@ GameObject:
   - component: {fileID: 2936806082233057376}
   - component: {fileID: 2936806082233057374}
   - component: {fileID: 2936806082233057377}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HealthBarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}

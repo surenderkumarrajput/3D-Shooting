@@ -1,31 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Zoom : MonoBehaviour
 {
-    public GameObject crosshair;
-    float FOV;
+    Image crosshair;
+
+    private float FOV;
     public float rate;
+
+    public float Min_FOV;
+
+    [SerializeField]
+    private string Crosshair_Name;
     void Start()
     {
-        crosshair.SetActive(false);
-        FOV=GetComponent<Camera>().fieldOfView;
+        crosshair = GameObject.Find(Crosshair_Name).GetComponent<Image>();
+        crosshair.enabled = false;
+        FOV=Camera.main.GetComponent<Camera>().fieldOfView;
     }
 
     void Update()
     {
-        if (Input.GetMouseButton(1))
-        {
+         if (Input.GetMouseButton(1))
+         {
             FOV -= rate;
-           crosshair.SetActive(true);
-        }
-        else
-        {
+            crosshair.enabled = true;
+         }
+         else
+         {
             FOV += rate;
-            crosshair.SetActive(false);
-        }
-        FOV = Mathf.Clamp(FOV, 45, 60);
-        GetComponent<Camera>().fieldOfView=FOV;
+            crosshair.enabled = false;
+         }
+         FOV = Mathf.Clamp(FOV, Min_FOV, 60);
+         Camera.main.GetComponent<Camera>().fieldOfView=FOV;
     }
 }

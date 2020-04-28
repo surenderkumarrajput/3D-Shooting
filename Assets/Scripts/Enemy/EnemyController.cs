@@ -21,14 +21,17 @@ public class EnemyController : MonoBehaviour
     public float MinX, MaxX;
     public float MinZ, MaxZ;
 
-  //  public GameObject BloodImpact;
+    public GameObject BloodImpact;
     public GameObject MuzzleFlash;
+    public GameObject Death_Effect;
 
     HealthSystems HealthSystems;
 
     bool isAlive = true;
 
-    public Transform trigger,Centre;
+    public Transform trigger;
+    public Transform Centre;
+    public Transform Hips_Position;
     public Transform MovePoints;
 
     public Image HealthImage;
@@ -77,10 +80,10 @@ public class EnemyController : MonoBehaviour
                         break;
                     }
                 case States.Running:
-                {
+                    {
                         navmeshAgent.SetDestination(playerController.GetComponent<Transform>().position);
                         break;
-                }
+                    }
                 case States.Attacking:
                     {
                         var Vector = (playerController.GetComponent<Transform>().position - transform.position).normalized;
@@ -106,6 +109,7 @@ public class EnemyController : MonoBehaviour
             }
             anim.SetFloat("Speed", navmeshAgent.velocity.magnitude, .1f, Time.deltaTime);
             #endregion
+
             #region Follow
             Collider[] collider = Physics.OverlapSphere(trigger.transform.position, SpottingRange);
             foreach (var Temp in collider)
@@ -138,9 +142,13 @@ public class EnemyController : MonoBehaviour
             {
                 hit.collider.GetComponent<HealthSystems>().DecreaseHealth(Damage);
                 CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
-                // Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
+                Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
             }
         }
+    }
+    public void DeathEffect()
+    {
+        Instantiate(Death_Effect, Hips_Position.position, Quaternion.identity);
     }
     private void OnDrawGizmosSelected()
     {

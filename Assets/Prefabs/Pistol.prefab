@@ -1510,6 +1510,7 @@ GameObject:
   - component: {fileID: 7075185571013082900}
   - component: {fileID: 7075185571013042997}
   - component: {fileID: 1643717511542943838}
+  - component: {fileID: -3115469449314977434}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Arms
@@ -1570,6 +1571,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 979e7d5f672eded4d9cb8d8356705b2b, type: 2}
+--- !u!114 &-3115469449314977434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075185571013042996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beccf01818aa26140ac747c6c0f2c471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rate: 1.5
+  Min_FOV: 45
+  Crosshair_Name: Crosshair
 --- !u!1 &7075185571013042998
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,5 +2749,6 @@ MonoBehaviour:
   ammo: {fileID: 11400000, guid: bdcec981a657d614792ffa9ee5dba995, type: 2}
   CurrentAmmo: 0
   ReloadTime: 1
+  TimebtwMuzzleFlash: 0.2
   MuzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
     type: 3}
