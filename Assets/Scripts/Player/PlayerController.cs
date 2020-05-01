@@ -6,18 +6,17 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    CharacterController characterController;
+    private CharacterController characterController;
 
     public float XSensitivity;
     [HideInInspector]
-    float CurrentMoveSpeed;
+    private float CurrentMoveSpeed;
     public float Speed;
     public float jumpSpeed;
-    float dummySpeed;
+    private float dummySpeed;
     public float RunningSpeed;
     public float YSensitivity;
-    float XRotation = 0f;
-    float ElapsedTime=0f, FixedTime = 5f;
+    private float XRotation = 0f;
 
     public int selectedWeapon = 0;
 
@@ -26,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     public Image HealthImage;
 
-    Animator anim;
+    private Animator anim;
 
     public List<GameObject> WeaponList=new List<GameObject>();
 
@@ -34,11 +33,11 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI BulletCount;
 
-    Inventory inventory;
-    HealthSystems healthSystems;
-    bool canRun;
+    private Inventory inventory;
+    private HealthSystems healthSystems;
 
-    Color FadeColor;
+    private bool canRun;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using EZCameraShake;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Shooting : MonoBehaviour
 {
@@ -61,6 +60,7 @@ public class Shooting : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
+                hit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hurt");
                 hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
                 CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
             }

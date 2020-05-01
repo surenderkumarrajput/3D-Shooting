@@ -11,7 +11,7 @@ public enum States
 }
 public class EnemyController : MonoBehaviour
 {
-    NavMeshAgent navmeshAgent;
+    private NavMeshAgent navmeshAgent;
 
     public float Range,SpottingRange;
     public float Damage;
@@ -25,9 +25,9 @@ public class EnemyController : MonoBehaviour
     public GameObject MuzzleFlash;
     public GameObject Death_Effect;
 
-    HealthSystems HealthSystems;
+    private HealthSystems HealthSystems;
 
-    bool isAlive = true;
+    private bool isAlive = true;
 
     public Transform trigger;
     public Transform Centre;
@@ -38,9 +38,9 @@ public class EnemyController : MonoBehaviour
 
     public States states;
 
-    Animator anim;
+    private Animator anim;
 
-    Vector3 PatrolPoints;
+    private Vector3 PatrolPoints;
 
     public PlayerController playerController;
 
