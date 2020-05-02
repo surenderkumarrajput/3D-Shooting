@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public static OnplayerDeath Playerdeath;
 
     public Image HealthImage;
+    public TextMeshProUGUI BulletCount;
+    public Slider Stamina_Bar;
 
     private Animator anim;
 
@@ -31,10 +33,9 @@ public class PlayerController : MonoBehaviour
 
     public Transform CameraTransform;
 
-    public TextMeshProUGUI BulletCount;
-
     private Inventory inventory;
     private HealthSystems healthSystems;
+    private Stamina Stamina_Ref;
 
     private bool canRun;
 
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         inventory = GetComponent<Inventory>();
         transform.GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(0, 0, 0);
         healthSystems = GetComponent<HealthSystems>();
+        Stamina_Ref = GetComponent<Stamina>();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -64,7 +66,10 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        //Setting Health value to UI.
         HealthImage.fillAmount = healthSystems.CurrentHealth / healthSystems.MaxHealth;
+        //Setting Stamina value to UI.
+        Stamina_Bar.value = Stamina_Ref.Current_Stamina / Stamina_Ref.Max_Stamina;
         if (healthSystems.CurrentHealth<=0)
         {
             Playerdeath();
@@ -97,20 +102,30 @@ public class PlayerController : MonoBehaviour
         var magnitude = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;
         dummySpeed = magnitude;
         //Player Running
-        if (Input.GetKey(KeyCode.LeftShift))
+      
+        if (Input.GetKey(KeyCode.LeftShift)&&Stamina_Ref.Current_Stamina>0)
         {
             canRun = true;
+            Stamina_Ref.StopCoroutine(Stamina_Ref.Recover_Stamina(2));
             CurrentMoveSpeed = RunningSpeed;
+            if (characterController.velocity.magnitude >= RunningSpeed)
+            {
+                Stamina_Ref.Current_Stamina -= 20 * Time.deltaTime;
+            }
         }
-        else
+        else if(Input.GetKeyUp(KeyCode.LeftShift))
         {
             canRun = false;
             CurrentMoveSpeed = Speed;
         }
-
-        //CharacterController Move 
-        characterController.Move(movedir);
-        //Rotation of Player
+        if(Stamina_Ref.Current_Stamina <= Stamina_Ref.Max_Stamina&&!canRun)
+        {
+            Stamina_Ref.StartCoroutine(Stamina_Ref.Recover_Stamina(2));
+        }
+        if(Stamina_Ref.Current_Stamina <= 0)
+        {
+            CurrentMoveSpeed = Speed;
+        }
         if (!canRun)
         {
             if (dummySpeed > 0.5f)
@@ -118,6 +133,9 @@ public class PlayerController : MonoBehaviour
                 dummySpeed = 0.5f;
             }
         }
+        //CharacterController Move 
+        characterController.Move(movedir);
+        //Rotation of Player
         transform.Rotate(0, Input.GetAxisRaw("MouseX") * XSensitivity * Time.deltaTime, 0);
 
         float Xroattion = Input.GetAxis("MouseY") * YSensitivity * Time.deltaTime;

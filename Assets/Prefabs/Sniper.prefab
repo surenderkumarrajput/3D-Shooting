@@ -48,6 +48,9 @@ MonoBehaviour:
   CurrentAmmo: 0
   ReloadTime: 2
   TimebtwMuzzleFlash: 0.5
+  Layer:
+    serializedVersion: 2
+    m_Bits: 256
   MuzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
     type: 3}
 --- !u!1 &8480980337897093760

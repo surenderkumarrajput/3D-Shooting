@@ -18,6 +18,8 @@ public class Shooting : MonoBehaviour
     public float ReloadTime;
     public float TimebtwMuzzleFlash;
 
+    public LayerMask Layer;
+
     public GameObject MuzzleFlash;
 
     private bool isReloading;
@@ -56,14 +58,11 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(TimebtwMuzzleFlash);
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit,Range))
+        if (Physics.Raycast(ray, out hit,Range,Layer))
         {
-            if (hit.collider.gameObject.CompareTag("Enemy"))
-            {
                 hit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hurt");
                 hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
                 CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
-            }
         }
         Instantiate(MuzzleFlash, transform.position, transform.rotation);
         CurrentAmmo--;

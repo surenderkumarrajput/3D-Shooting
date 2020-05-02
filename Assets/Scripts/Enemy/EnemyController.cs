@@ -136,7 +136,7 @@ public class EnemyController : MonoBehaviour
     {
         Ray ray = new Ray(Centre.transform.position, Centre.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Range) )
+        if (Physics.Raycast(ray, out hit, Range))
         {
             if (hit.collider.gameObject.CompareTag("Player"))
             {

@@ -20,7 +20,7 @@ MonoBehaviour:
     type: 3}
   Damage: 10
   MaxBullets: 6
-  Range: 16
+  Range: 30
   FireRate: 1
   TotalBullets: 0
   Model: {fileID: 7075185571013042996, guid: 71f6df149f2b79949ae289dc55a2422f, type: 3}

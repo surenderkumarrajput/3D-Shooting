@@ -1274,7 +1274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834056469990587761}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.575212, y: -6.524104, z: 6.939171}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1834056469990613257}
@@ -1331,9 +1331,11 @@ MonoBehaviour:
     type: 3}
   MuzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
     type: 3}
-  Death_Effect: {fileID: 0}
+  Death_Effect: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
+    type: 3}
   trigger: {fileID: 2936806082175062391}
   Centre: {fileID: 2936806081123455500}
+  Hips_Position: {fileID: 1834056469990613257}
   MovePoints: {fileID: 2936806080837472662}
   HealthImage: {fileID: 2936806081775933948}
   states: 0
@@ -1864,7 +1866,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2936806081976903655}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -210.00594, y: 38.338127, z: -384.70148}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1834056469990613329}
