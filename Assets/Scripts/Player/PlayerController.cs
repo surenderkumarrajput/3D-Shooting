@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private Inventory inventory;
     private HealthSystems healthSystems;
     private Stamina Stamina_Ref;
+    public WayPoint Waypoint_Ref;
 
     private bool canRun;
 
@@ -61,6 +62,11 @@ public class PlayerController : MonoBehaviour
         {
             var item = hit.gameObject.GetComponent<ItemScript>();
             inventory.Add(item.item, item.item.Amount);
+            Destroy(hit.gameObject);
+        }
+        if(hit.gameObject.CompareTag("WayPoint"))
+        {
+            Waypoint_Ref.Target.Remove(hit.collider.transform);
             Destroy(hit.gameObject);
         }
     }
@@ -102,7 +108,6 @@ public class PlayerController : MonoBehaviour
         var magnitude = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;
         dummySpeed = magnitude;
         //Player Running
-      
         if (Input.GetKey(KeyCode.LeftShift)&&Stamina_Ref.Current_Stamina>0)
         {
             canRun = true;

@@ -11,6 +11,7 @@ TagManager:
   - PPaint
   - Arms
   - Medkits
+  - WayPoint
   layers:
   - Default
   - TransparentFX

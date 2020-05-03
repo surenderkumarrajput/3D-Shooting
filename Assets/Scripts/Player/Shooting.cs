@@ -28,6 +28,7 @@ public class Shooting : MonoBehaviour
     {
         animator = GameObject.FindGameObjectWithTag("Arms").GetComponent<Animator>();
         CurrentAmmo = weapons.MaxBullets;
+        FindObjectOfType<AudioManager>().Play(weapons.ReadySound);
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
     
@@ -61,9 +62,11 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(ray, out hit,Range,Layer))
         {
                 hit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hurt");
+                FindObjectOfType<AudioManager>().Play(hit.collider.gameObject.GetComponent<EnemyController>().ImpactSound);
                 hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
                 CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
         }
+        FindObjectOfType<AudioManager>().Play(weapons.FireSound);
         Instantiate(MuzzleFlash, transform.position, transform.rotation);
         CurrentAmmo--;
     }
@@ -71,6 +74,7 @@ public class Shooting : MonoBehaviour
     {
         isReloading = true;
         animator.SetTrigger("Reload");
+        FindObjectOfType<AudioManager>().Play(weapons.ReloadSound);
         yield return new WaitForSeconds(ReloadTime);
         animator.ResetTrigger("Reload");
         weapons.TotalBullets--;

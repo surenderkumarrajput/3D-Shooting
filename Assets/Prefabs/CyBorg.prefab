@@ -1322,7 +1322,7 @@ MonoBehaviour:
   TimeBetweenFiring: 1
   FireRate: 0.8
   SpawnPointsRate: 0.09
-  Waittime: 5
+  Waittime: 0
   MinX: -10
   MaxX: 10
   MinZ: -10
@@ -1340,6 +1340,7 @@ MonoBehaviour:
   HealthImage: {fileID: 2936806081775933948}
   states: 0
   playerController: {fileID: 0}
+  ImpactSound: BloodImpact
 --- !u!114 &1834056469990587754
 MonoBehaviour:
   m_ObjectHideFlags: 0

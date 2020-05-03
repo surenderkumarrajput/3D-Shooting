@@ -7,6 +7,11 @@ public class Weapons : Item
     public float Range;
     public float FireRate;
     public float TotalBullets = 0;
+
+    public string ReloadSound;
+    public string FireSound;
+    public string ReadySound;
+
     public GameObject Model;
     private GameObject go;
     public override void Use(Item _Item)

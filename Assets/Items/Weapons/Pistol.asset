@@ -23,4 +23,7 @@ MonoBehaviour:
   Range: 30
   FireRate: 1
   TotalBullets: 0
+  ReloadSound: PistolReload
+  FireSound: PistolFire
+  ReadySound: PistolReady
   Model: {fileID: 7075185571013042996, guid: 71f6df149f2b79949ae289dc55a2422f, type: 3}

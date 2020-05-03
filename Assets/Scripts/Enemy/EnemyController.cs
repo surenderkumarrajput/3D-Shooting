@@ -44,6 +44,7 @@ public class EnemyController : MonoBehaviour
 
     public PlayerController playerController;
 
+    public string ImpactSound;
     void Start()
     {
         navmeshAgent = GetComponent<NavMeshAgent>();
@@ -67,7 +68,7 @@ public class EnemyController : MonoBehaviour
         if(isAlive)
         {
             //Shooting
-            if (Vector3.Distance(transform.position, playerController.GetComponent<Transform>().position) <= navmeshAgent.stoppingDistance)
+            if (Vector3.Distance(transform.position, playerController.GetComponent<Transform>().position) <= Range)
             {
                 states = States.Attacking;
             }
@@ -92,6 +93,7 @@ public class EnemyController : MonoBehaviour
                         if(Time.time >= TimeBetweenFiring)
                         {
                             anim.SetTrigger("NormalShoot");
+                            FindObjectOfType<AudioManager>().Play("EnemyFire");
                             TimeBetweenFiring = Time.time + 1 / FireRate;
                         }
                         break;
@@ -141,6 +143,7 @@ public class EnemyController : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Player"))
             {
                 hit.collider.GetComponent<HealthSystems>().DecreaseHealth(Damage);
+                FindObjectOfType<AudioManager>().Play("BloodImpact");
                 CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
                 Instantiate(BloodImpact, hit.collider.GetComponent<Transform>().position, Quaternion.identity);
             }
@@ -148,6 +151,7 @@ public class EnemyController : MonoBehaviour
     }
     public void DeathEffect()
     {
+        FindObjectOfType<AudioManager>().Play("Explosion");
         Instantiate(Death_Effect, Hips_Position.position, Quaternion.identity);
     }
     private void OnDrawGizmosSelected()
@@ -172,7 +176,7 @@ public class EnemyController : MonoBehaviour
     IEnumerator IdleToPatrol()
     {
         states = States.IDLE;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         states = States.Patroling;
     }
 }

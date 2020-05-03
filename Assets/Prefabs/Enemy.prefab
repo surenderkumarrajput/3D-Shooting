@@ -3044,7 +3044,7 @@ MonoBehaviour:
   TimeBetweenFiring: 1
   FireRate: 0.6
   SpawnPointsRate: 0.1
-  Waittime: 5
+  Waittime: 0
   MinX: -10
   MaxX: 10
   MinZ: -10
@@ -3056,10 +3056,12 @@ MonoBehaviour:
   Death_Effect: {fileID: 0}
   trigger: {fileID: 1972402046729348622}
   Centre: {fileID: 1972402046656080388}
+  Hips_Position: {fileID: 0}
   MovePoints: {fileID: 1100753037319504476}
   HealthImage: {fileID: 1100753036637045661}
   states: 0
   playerController: {fileID: 0}
+  ImpactSound: RobotImpact
 --- !u!195 &7684909116722052927
 NavMeshAgent:
   m_ObjectHideFlags: 0

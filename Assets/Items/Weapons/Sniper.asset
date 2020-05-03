@@ -22,5 +22,8 @@ MonoBehaviour:
   MaxBullets: 5
   Range: 100
   FireRate: 2
-  TotalBullets: 1
+  TotalBullets: 0
+  ReloadSound: SniperReload
+  FireSound: SniperFire
+  ReadySound: SniperReady
   Model: {fileID: 8480980337897093932, guid: 28d80e7ff7b599645809e3d2cc851b14, type: 3}
