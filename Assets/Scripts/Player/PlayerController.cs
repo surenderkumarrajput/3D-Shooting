@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             Waypoint_Ref.Target.Remove(hit.collider.transform);
             Destroy(hit.gameObject);
+            Waypoint_Ref.Objective.Remove(Waypoint_Ref.Objective[Waypoint_Ref.i]);
         }
     }
     void Update()
@@ -203,19 +204,23 @@ public class PlayerController : MonoBehaviour
     private void HolsterWeapon()
     {
         int i = 0;
-        foreach (var item in WeaponList)
-        {
+       foreach (var item in WeaponList)
+       {
             if (i == selectedWeapon)
             {
-                WeaponList[i].SetActive(true);
-                WeaponList[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
-                anim = WeaponList[i].GetComponent<Animator>();
+                  WeaponList[i].SetActive(true);
+                  WeaponList[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
+                  anim = WeaponList[i].GetComponent<Animator>();
+                  if (WeaponList[i].GetComponentInChildren<Shooting>() != null)
+                  {
+                    FindObjectOfType<AudioManager>().Play(WeaponList[i].GetComponentInChildren<Shooting>().weapons.ReadySound);
+                  }
             }
             else
             {
-                WeaponList[i].SetActive(false);
+                   WeaponList[i].SetActive(false);
             }
-            i++;
-        }
+                  i++;
+       }
     }
 }

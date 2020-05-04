@@ -23,12 +23,10 @@ public class Shooting : MonoBehaviour
     public GameObject MuzzleFlash;
 
     private bool isReloading;
-
     private void Start()
     {
         animator = GameObject.FindGameObjectWithTag("Arms").GetComponent<Animator>();
         CurrentAmmo = weapons.MaxBullets;
-        FindObjectOfType<AudioManager>().Play(weapons.ReadySound);
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
     
@@ -89,7 +87,8 @@ public class Shooting : MonoBehaviour
             }
         }
     }
-   public bool MouseoveronGUI()
+   
+    public bool MouseoveronGUI()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current);
         eventData.position = Input.mousePosition;
