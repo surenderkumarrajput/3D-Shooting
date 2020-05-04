@@ -11,7 +11,7 @@ public enum States
 }
 public class EnemyController : MonoBehaviour
 {
-    private NavMeshAgent navmeshAgent;
+    public NavMeshAgent navmeshAgent;
 
     public float Range,SpottingRange;
     public float Damage;

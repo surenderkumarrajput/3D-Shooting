@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public HealthSystems healthSystems;
+    private HealthSystems healthSystems;
 
     public GameObject Key_Object;
     
@@ -23,6 +23,6 @@ public class Key : MonoBehaviour
     }
     public void Key_Spawn()
     {
-        Instantiate(Key_Object, transform.position, Quaternion.identity);
+        Instantiate(Key_Object, GetComponent<EnemyController>().Centre.position, Quaternion.identity);
     }
 }

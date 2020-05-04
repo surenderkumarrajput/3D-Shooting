@@ -12,6 +12,7 @@ TagManager:
   - Arms
   - Medkits
   - WayPoint
+  - Oroborus
   layers:
   - Default
   - TransparentFX

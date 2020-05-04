@@ -59,10 +59,12 @@ public class Shooting : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,Range,Layer))
         {
-                hit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hurt");
                 FindObjectOfType<AudioManager>().Play(hit.collider.gameObject.GetComponent<EnemyController>().ImpactSound);
+            if (hit.collider.gameObject.GetComponent<HealthSystems>()!=null)
+            {
                 hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
-                CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
+            }
+            CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
         }
         FindObjectOfType<AudioManager>().Play(weapons.FireSound);
         Instantiate(MuzzleFlash, transform.position, transform.rotation);

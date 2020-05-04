@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
         foreach(var s in AudioArray)
         {
             s.source = gameObject.AddComponent<AudioSource>();
+            s.source.spatialBlend = 0.5f;
             s.source.clip = s.clip;
             s.source.volume = s.volume;
             s.source.loop = s.Loop;

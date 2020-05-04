@@ -66,9 +66,13 @@ public class PlayerController : MonoBehaviour
         }
         if(hit.gameObject.CompareTag("WayPoint"))
         {
+            Waypoint_Ref.Objective.Remove(Waypoint_Ref.Objective[Waypoint_Ref.i]);
             Waypoint_Ref.Target.Remove(hit.collider.transform);
             Destroy(hit.gameObject);
-            Waypoint_Ref.Objective.Remove(Waypoint_Ref.Objective[Waypoint_Ref.i]);
+        }
+        if(hit.gameObject.CompareTag("Oroborus"))
+        {
+            StartCoroutine(SceneChangeManager.instance.SceneChange("FinalLevel"));
         }
     }
     void Update()
