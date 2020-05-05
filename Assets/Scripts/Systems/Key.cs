@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Key : MonoBehaviour
 {
     private HealthSystems healthSystems;
+    public WayPoint Waypoint_Ref;
 
     public GameObject Key_Object;
-    
+    public GameObject WayPoint_Object;
+
+
     private bool isEnemyDead = false;
     private void Start()
     {
@@ -23,6 +27,10 @@ public class Key : MonoBehaviour
     }
     public void Key_Spawn()
     {
-        Instantiate(Key_Object, GetComponent<EnemyController>().Centre.position, Quaternion.identity);
+        GameObject go = Instantiate(Key_Object, GetComponent<EnemyController>().Centre.position, Quaternion.identity);
+        Waypoint_Ref.Target.Add(go.transform);
+        Waypoint_Ref.i++;
+        WayPoint_Object.SetActive(true);
+        Objectives.instance.i++;
     }
 }

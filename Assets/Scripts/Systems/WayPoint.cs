@@ -10,11 +10,8 @@ public class WayPoint : MonoBehaviour
 
     public List<Transform> Target = new List<Transform>();
 
-    public List<string> Objective = new List<string>();
-
+    bool Active = true;
     public TextMeshProUGUI Meter;
-    public TextMeshProUGUI Objective_Text;
-
     [HideInInspector]
     public int i = 0;
 
@@ -22,11 +19,6 @@ public class WayPoint : MonoBehaviour
 
     private void Update()
     {
-        if(Target.Count<=0)
-        {
-            Img.gameObject.SetActive(false);
-            return;
-        }
         float minX = Img.GetPixelAdjustedRect().width / 2;
         float maxX = Screen.width - minX;
 
@@ -52,13 +44,5 @@ public class WayPoint : MonoBehaviour
 
         Img.transform.position = pos;
         Meter.text = ((int)Vector3.Distance(Target[i].transform.position, transform.position)).ToString() + "m";
-        if(Objective_Text==null)
-        {
-            return;
-        }
-        else
-        {
-            Objective_Text.text = Objective[i];
-        }
     }
 }

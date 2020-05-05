@@ -13,7 +13,12 @@ public class EnemyController : MonoBehaviour
 {
     public NavMeshAgent navmeshAgent;
 
-    public float Range,SpottingRange;
+    public float Normal_Range;
+    public float After_Hit_Range;
+
+    [HideInInspector]
+    public float Range;
+    public float SpottingRange;
     public float Damage;
     public float TimeBetweenFiring;
     public float FireRate,SpawnPointsRate;
@@ -48,9 +53,9 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         navmeshAgent = GetComponent<NavMeshAgent>();
-        navmeshAgent.stoppingDistance = Range;
         HealthSystems = GetComponent<HealthSystems>();
         anim = GetComponent<Animator>();
+        Range = Normal_Range;
         states = States.IDLE;
         PlayerController.Playerdeath += StopEnemyMovements;
         PatrolPoints = new Vector3(MovePoints.position.x+Random.Range(MinX, MaxX), 0, MovePoints.position.z + Random.Range(MinZ, MaxZ));
@@ -77,16 +82,19 @@ public class EnemyController : MonoBehaviour
             {
                 case States.IDLE:
                     {
+                        navmeshAgent.isStopped=false;
                         navmeshAgent.ResetPath();
                         break;
                     }
                 case States.Running:
                     {
+                        navmeshAgent.isStopped = false;
                         navmeshAgent.SetDestination(playerController.GetComponent<Transform>().position);
                         break;
                     }
                 case States.Attacking:
                     {
+                        navmeshAgent.isStopped = true;
                         var Vector = (playerController.GetComponent<Transform>().position - transform.position).normalized;
                         Quaternion LookRotation = Quaternion.LookRotation(new Vector3(Vector.x, 0, Vector.z));
                         transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, Time.deltaTime * 10f);

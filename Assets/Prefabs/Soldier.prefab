@@ -1003,7 +1003,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097c2532b7a0daf44a0e48c09c7c79ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Range: 20
+  navmeshAgent: {fileID: 4574715184020718186}
+  Normal_Range: 20
+  After_Hit_Range: 0
+  Range: 0
   SpottingRange: 30
   Damage: 10
   TimeBetweenFiring: 1

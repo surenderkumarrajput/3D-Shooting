@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed;
     private float dummySpeed;
     public float RunningSpeed;
+    private float ElapsedTime = 1.3f;
+    private float TimeBwtweenSwitching=1.3f;
     public float YSensitivity;
     private float XRotation = 0f;
 
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private HealthSystems healthSystems;
     private Stamina Stamina_Ref;
     public WayPoint Waypoint_Ref;
+    public Objectives Objectives_Ref;
 
     private bool canRun;
 
@@ -66,9 +69,19 @@ public class PlayerController : MonoBehaviour
         }
         if(hit.gameObject.CompareTag("WayPoint"))
         {
-            Waypoint_Ref.Objective.Remove(Waypoint_Ref.Objective[Waypoint_Ref.i]);
-            Waypoint_Ref.Target.Remove(hit.collider.transform);
             Destroy(hit.gameObject);
+            if(Waypoint_Ref.i+1<Waypoint_Ref.Target.Count)
+            {
+                Waypoint_Ref.i++;
+            }
+            if (Objectives_Ref.i<Objectives_Ref.Objective.Count)
+            {
+                Objectives_Ref.i++;
+            }
+            else
+            {
+                return;
+            }
         }
         if(hit.gameObject.CompareTag("Oroborus"))
         {
@@ -154,7 +167,7 @@ public class PlayerController : MonoBehaviour
         CameraTransform.localRotation = Quaternion.Euler(XRotation, 0, 0);
 
         #endregion
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0&& ElapsedTime > TimeBwtweenSwitching)
         {
                 if (selectedWeapon >= WeaponList.Count - 1)
                 {
@@ -165,8 +178,9 @@ public class PlayerController : MonoBehaviour
                     selectedWeapon++;
                 }
             HolsterWeapon();
+            ElapsedTime = 0f;
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && ElapsedTime > TimeBwtweenSwitching)
         {
           if (selectedWeapon <= 0)
           {
@@ -177,6 +191,11 @@ public class PlayerController : MonoBehaviour
              selectedWeapon--;
           }
             HolsterWeapon();
+            ElapsedTime = 0f;
+        }
+        else
+        {
+            ElapsedTime += Time.deltaTime;
         }
         BulletCountUpdate();
     }

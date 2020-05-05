@@ -18,9 +18,9 @@ MonoBehaviour:
     type: 3}
   SpawnableObjects: {fileID: 5489177487659163749, guid: 00c1e3317d7dd79419f4a63b79dc6e2b,
     type: 3}
-  Damage: 10
+  Damage: 30
   MaxBullets: 6
-  Range: 30
+  Range: 50
   FireRate: 1
   TotalBullets: 0
   ReloadSound: PistolReload

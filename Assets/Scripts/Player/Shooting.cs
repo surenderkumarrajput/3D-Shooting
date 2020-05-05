@@ -22,6 +22,7 @@ public class Shooting : MonoBehaviour
 
     public GameObject MuzzleFlash;
 
+
     private bool isReloading;
     private void Start()
     {
@@ -59,10 +60,17 @@ public class Shooting : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,Range,Layer))
         {
-                FindObjectOfType<AudioManager>().Play(hit.collider.gameObject.GetComponent<EnemyController>().ImpactSound);
+            FindObjectOfType<AudioManager>().Play(hit.collider.gameObject.GetComponent<EnemyController>().ImpactSound);
             if (hit.collider.gameObject.GetComponent<HealthSystems>()!=null)
             {
                 hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
+            }
+            if (hit.collider.GetComponent<EnemyController>()!=null)
+            {
+                hit.collider.GetComponent<EnemyController>().navmeshAgent.ResetPath();
+                hit.collider.GetComponent<EnemyController>().After_Hit_Range = Vector3.Distance(transform.position, hit.collider.GetComponent<Transform>().position);
+                hit.collider.GetComponent<EnemyController>().SpottingRange += hit.collider.GetComponent<EnemyController>().After_Hit_Range;
+                hit.collider.GetComponent<EnemyController>().states = States.Running;
             }
             CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
         }
