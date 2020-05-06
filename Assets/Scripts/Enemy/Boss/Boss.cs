@@ -34,6 +34,7 @@ public class Boss : MonoBehaviour
 
     private Animator anim;
 
+    [HideInInspector]
     public bool isDead = false;
     void Start()
     {
@@ -170,6 +171,7 @@ public class Boss : MonoBehaviour
             CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
         }
     }
+
     public void Death_Effect_Function(GameObject Death_Effect)
     {
         Instantiate(Death_Effect, Hips_Transform.position,Quaternion.identity);

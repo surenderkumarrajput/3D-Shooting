@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public float YSensitivity;
     private float XRotation = 0f;
 
+    [HideInInspector]
     public int selectedWeapon = 0;
 
     public delegate void OnplayerDeath();
@@ -27,7 +28,10 @@ public class PlayerController : MonoBehaviour
 
     public Image HealthImage;
     public TextMeshProUGUI BulletCount;
-    public Slider Stamina_Bar;
+    public TextMeshProUGUI Mag;
+    public TextMeshProUGUI Gun_Name;
+
+    public Image Stamina_Bar;
 
     private Animator anim;
 
@@ -85,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
         if(hit.gameObject.CompareTag("Oroborus"))
         {
-            StartCoroutine(SceneChangeManager.instance.SceneChange("FinalLevel"));
+            SceneChangeManager.instance.SceneChangeFunction("FinalLevel");
         }
     }
     void Update()
@@ -93,7 +97,7 @@ public class PlayerController : MonoBehaviour
         //Setting Health value to UI.
         HealthImage.fillAmount = healthSystems.CurrentHealth / healthSystems.MaxHealth;
         //Setting Stamina value to UI.
-        Stamina_Bar.value = Stamina_Ref.Current_Stamina / Stamina_Ref.Max_Stamina;
+        Stamina_Bar.fillAmount = Stamina_Ref.Current_Stamina / Stamina_Ref.Max_Stamina;
         if (healthSystems.CurrentHealth<=0)
         {
             Playerdeath();
@@ -204,11 +208,21 @@ public class PlayerController : MonoBehaviour
     {
         if(WeaponList[selectedWeapon].GetComponentInChildren<Shooting>()!=null)
         {
-            BulletCount.text = WeaponList[selectedWeapon].GetComponentInChildren<Shooting>().CurrentAmmo.ToString() + " / " + WeaponList[selectedWeapon].GetComponentInChildren<Shooting>().weapons.TotalBullets.ToString();
+            BulletCount.text = WeaponList[selectedWeapon].GetComponentInChildren<Shooting>().CurrentAmmo.ToString(); 
+            Mag.text = WeaponList[selectedWeapon].GetComponentInChildren<Shooting>().weapons.TotalBullets.ToString();
+            Gun_Name.text = WeaponList[selectedWeapon].GetComponentInChildren<Shooting>().weapons.name;
+        }
+        else if (WeaponList[selectedWeapon].GetComponentInChildren<Melee>() != null)
+        {
+            BulletCount.text = "0";
+            Mag.text = "0";
+            Gun_Name.text = WeaponList[selectedWeapon].GetComponentInChildren<Melee>().name;
         }
         else
         {
-            BulletCount.text = "0 / 0";
+            BulletCount.text = "0";
+            Mag.text = "0";
+            Gun_Name.text = "Fist";
         }
     }
     public void Spawn(GameObject obj)
