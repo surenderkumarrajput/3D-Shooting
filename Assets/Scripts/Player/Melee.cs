@@ -48,7 +48,10 @@ public class Melee : MonoBehaviour
         foreach (var Temp in collider)
         {
             Temp.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapon.Damage);
-            FindObjectOfType<AudioManager>().Play(Temp.gameObject.GetComponent<EnemyController>().ImpactSound);
+            if(Temp.gameObject.GetComponent<EnemyController>()!=null)
+            {
+                FindObjectOfType<AudioManager>().Play(Temp.gameObject.GetComponent<EnemyController>().ImpactSound);
+            }
         }
     }
     private void OnDrawGizmosSelected()

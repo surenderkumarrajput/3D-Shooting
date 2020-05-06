@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
             {
                    WeaponList[i].SetActive(false);
             }
-                  i++;
+                   i++;
        }
     }
 }

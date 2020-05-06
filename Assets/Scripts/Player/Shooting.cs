@@ -22,8 +22,8 @@ public class Shooting : MonoBehaviour
 
     public GameObject MuzzleFlash;
 
-
-    private bool isReloading;
+    [HideInInspector]
+    public bool isReloading;
     private void Start()
     {
         animator = GameObject.FindGameObjectWithTag("Arms").GetComponent<Animator>();
@@ -33,7 +33,7 @@ public class Shooting : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetMouseButton(0) && Time.time >= TimebetweenFire && CurrentAmmo>0&&!isReloading&&!MouseoveronGUI())
+        if (Input.GetMouseButton(0) && Time.time >= TimebetweenFire && CurrentAmmo>0&&!isReloading && !MouseoveronGUI())
         {
             StartCoroutine(ShootingFunction(weapons.Range));
             TimebetweenFire = Time.time + 1 / weapons.FireRate;
@@ -60,14 +60,21 @@ public class Shooting : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,Range,Layer))
         {
-            FindObjectOfType<AudioManager>().Play(hit.collider.gameObject.GetComponent<EnemyController>().ImpactSound);
             if (hit.collider.gameObject.GetComponent<HealthSystems>()!=null)
             {
                 hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
             }
+            if (hit.collider.gameObject.GetComponent<Boss>() != null)
+            {
+                if (!hit.collider.gameObject.GetComponent<Boss>().isDead)
+                {
+                   hit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hurt");
+                }
+            }
             if (hit.collider.GetComponent<EnemyController>()!=null)
             {
                 hit.collider.GetComponent<EnemyController>().navmeshAgent.ResetPath();
+                FindObjectOfType<AudioManager>().Play(hit.collider.gameObject.GetComponent<EnemyController>().ImpactSound);
                 hit.collider.GetComponent<EnemyController>().After_Hit_Range = Vector3.Distance(transform.position, hit.collider.GetComponent<Transform>().position);
                 hit.collider.GetComponent<EnemyController>().SpottingRange += hit.collider.GetComponent<EnemyController>().After_Hit_Range;
                 hit.collider.GetComponent<EnemyController>().states = States.Running;

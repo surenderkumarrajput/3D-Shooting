@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5067658289636509858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5067658289636509868}
+  - component: {fileID: 5067658289636509869}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5067658289636509868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067658289636509858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1307.7354, y: 661.6072, z: 43.81108}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5067658289636509869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067658289636509858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8658dec3adb8241bf7eb5921c45adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioArray:
+  - name: SniperFire
+    clip: {fileID: 8300000, guid: 75475f898f88eff4780d5e9d13742ba6, type: 3}
+    volume: 1
+    pitch: 0.5
+    Loop: 0
+    source: {fileID: 0}
+  - name: SniperReady
+    clip: {fileID: 8300000, guid: 35115f6f12ae91642a4de4316b24f30f, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: SniperReload
+    clip: {fileID: 8300000, guid: 0375d4adec66ba141afbe6875606d20a, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: RifleFire
+    clip: {fileID: 8300000, guid: 9e15529a9be52d44c9ce37e31efdac1a, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: RifleReload
+    clip: {fileID: 8300000, guid: 8f93cd1d03951d74bbcba0f0f4a632ef, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: RifleReady
+    clip: {fileID: 8300000, guid: 3c99b373c39320a41a03fd23b0d47f7a, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: PistolReady
+    clip: {fileID: 8300000, guid: 2ff6911a56ecc1741909629f43cc1cd5, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: PistolReload
+    clip: {fileID: 8300000, guid: 93660cd0825d5884482634d9c0e8d1bb, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: PistolFire
+    clip: {fileID: 8300000, guid: 54efd359658da384a87b69d45443166f, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: ShotgunFire
+    clip: {fileID: 8300000, guid: 8eb963055d142ac469eba8ce43839454, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: ShotgunReload
+    clip: {fileID: 8300000, guid: efa48b6431c9fcc428f044b750ee2b52, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: ShotgunReady
+    clip: {fileID: 8300000, guid: 4f7d3a4668e583d478d0e1e2b6c4c66b, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: EnemyFire
+    clip: {fileID: 8300000, guid: 30f4499848e4dd74b8d3661c9b96ae3c, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: Walk
+    clip: {fileID: 8300000, guid: b0b76fcce91e53b48b000a3150b5463f, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: BloodImpact
+    clip: {fileID: 8300000, guid: c5d40668bb1e9a242991098f631605e2, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: RobotImpact
+    clip: {fileID: 8300000, guid: 7a4046571e14f5a4f929d063e1fd087f, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 9c4da4e44d8e0eb42ad14c547287a556, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
