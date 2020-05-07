@@ -10,7 +10,8 @@ public class UImanager : MonoBehaviour
     GameObject playerController;
 
     public float AlphaMultiplier;
-
+    float ElapsedTime=0f;
+    float fixedTime = 1f;
     private float Alpha;
     private Color ImageColorRef;
     void Start()
@@ -46,6 +47,15 @@ public class UImanager : MonoBehaviour
             if (playerController.GetComponent<HealthSystems>().CurrentHealth < 30)
             {
                 Alpha = 255;
+                if(ElapsedTime>fixedTime)
+                {
+                    FindObjectOfType<AudioManager>().Play("HeartBeat");
+                    ElapsedTime = 0f;
+                }
+                else
+                {
+                    ElapsedTime += Time.deltaTime;
+                }
             }
             else
             {
@@ -55,4 +65,5 @@ public class UImanager : MonoBehaviour
         ImageColorRef.a = Alpha;
         DamageImage.color = ImageColorRef;
     }
+   
 }

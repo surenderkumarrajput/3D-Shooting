@@ -7,7 +7,6 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         if (instance == null)
         {
             instance = this;
@@ -28,7 +27,7 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
-      //  Play("Theme");
+       Play("Theme");
     }
     public void Play(string name)
     {

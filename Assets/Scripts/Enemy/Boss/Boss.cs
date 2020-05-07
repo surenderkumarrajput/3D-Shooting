@@ -34,6 +34,8 @@ public class Boss : MonoBehaviour
 
     private Animator anim;
 
+    private bool isSaid1=false;
+
     [HideInInspector]
     public bool isDead = false;
     void Start()
@@ -66,6 +68,7 @@ public class Boss : MonoBehaviour
             {
                 case Boss_States.IDLE:
                     {
+                       
                         NavmeshAgent.isStopped=true;
                         break;
                     }
@@ -83,6 +86,7 @@ public class Boss : MonoBehaviour
                             }
                             else if(EnergySystem.CurrentEnergy < EnergySystem.MaxEnergy)
                             {
+                               
                                 int rand = Random.Range(0, 2);
                                 if (rand == 1)
                                 {
@@ -109,6 +113,11 @@ public class Boss : MonoBehaviour
                 case Boss_States.Running:
                     {
                         NavmeshAgent.isStopped = false;
+                        if (!isSaid1)
+                        {
+                            isSaid1 = true;
+                            FindObjectOfType<DialogAudioManager>().Play("u think u can kill me ");
+                        }
                         NavmeshAgent.SetDestination(playerController.GetComponent<Transform>().position);
                         break;
                     }
@@ -132,6 +141,7 @@ public class Boss : MonoBehaviour
                 StartCoroutine(IdletoChase());
             }
             #endregion
+            
             anim.SetFloat("Speed", NavmeshAgent.velocity.sqrMagnitude,0.1f,Time.deltaTime);
         }
         else
@@ -156,10 +166,12 @@ public class Boss : MonoBehaviour
     }
     public void Attack_Effect_Function(GameObject Effect_Object)
     {
+       
         Instantiate(Effect_Object, Right_Hand_Axe.position, Quaternion.identity);
     }
     public void Special_Attack_Energy()
     {
+        FindObjectOfType<DialogAudioManager>().Play("RestinPeace");
         EnergySystem.CurrentEnergy = 0f;
     }
     public void Attack(float Damage)
@@ -167,6 +179,7 @@ public class Boss : MonoBehaviour
         Collider[] Collider = Physics.OverlapSphere(Right_Hand_Axe.position, 2,Player_Layer);
         foreach (var hit in Collider)
         {
+            FindObjectOfType<AudioManager>().Play("BloodImpact");
             hit.gameObject.GetComponent<HealthSystems>().DecreaseHealth(Damage);
             CameraShaker.Instance.ShakeOnce(20, 20, .1f, .2f);
         }
@@ -174,6 +187,7 @@ public class Boss : MonoBehaviour
 
     public void Death_Effect_Function(GameObject Death_Effect)
     {
+        FindObjectOfType<AudioManager>().Play("Explosion");
         Instantiate(Death_Effect, Hips_Transform.position,Quaternion.identity);
     }
     private void StopEnemyMovements()

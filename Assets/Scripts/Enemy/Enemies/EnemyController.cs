@@ -184,7 +184,7 @@ public class EnemyController : MonoBehaviour
     IEnumerator IdleToPatrol()
     {
         states = States.IDLE;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         states = States.Patroling;
     }
 }

@@ -9,8 +9,6 @@ public class WayPoint : MonoBehaviour
     public Image Img;
 
     public List<Transform> Target = new List<Transform>();
-
-    bool Active = true;
     public TextMeshProUGUI Meter;
     [HideInInspector]
     public int i = 0;

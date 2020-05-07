@@ -26,12 +26,12 @@ public class PlayerController : MonoBehaviour
     public delegate void OnplayerDeath();
     public static OnplayerDeath Playerdeath;
 
-    public Image HealthImage;
     public TextMeshProUGUI BulletCount;
     public TextMeshProUGUI Mag;
     public TextMeshProUGUI Gun_Name;
 
     public Image Stamina_Bar;
+    public Image HealthImage;
 
     private Animator anim;
 
@@ -44,8 +44,10 @@ public class PlayerController : MonoBehaviour
     private Stamina Stamina_Ref;
     public WayPoint Waypoint_Ref;
     public Objectives Objectives_Ref;
+    public List<Collider> DialogueSoundTriggers=new List<Collider>();
 
     private bool canRun;
+    private bool isDead = false;
 
     void Start()
     {
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if(hit.gameObject.CompareTag("WayPoint"))
         {
             Destroy(hit.gameObject);
-            if(Waypoint_Ref.i+1<Waypoint_Ref.Target.Count)
+            if (Waypoint_Ref.i+1<Waypoint_Ref.Target.Count)
             {
                 Waypoint_Ref.i++;
             }
@@ -89,8 +91,19 @@ public class PlayerController : MonoBehaviour
         }
         if(hit.gameObject.CompareTag("Oroborus"))
         {
+            FindObjectOfType<DialogAudioManager>().Play("u survived till now but no longer");
             SceneChangeManager.instance.SceneChangeFunction("FinalLevel");
         }
+        for (int i = 0; i < DialogueSoundTriggers.Count; i++)
+        {
+            if (hit.collider.name == DialogueSoundTriggers[i].name)
+            {
+                FindObjectOfType<DialogAudioManager>().Play(DialogueSoundTriggers[i].name);
+                DialogueSoundTriggers.Remove(DialogueSoundTriggers[i]);
+                Destroy(hit.collider.gameObject);
+            }
+        }
+        
     }
     void Update()
     {
@@ -98,81 +111,85 @@ public class PlayerController : MonoBehaviour
         HealthImage.fillAmount = healthSystems.CurrentHealth / healthSystems.MaxHealth;
         //Setting Stamina value to UI.
         Stamina_Bar.fillAmount = Stamina_Ref.Current_Stamina / Stamina_Ref.Max_Stamina;
-        if (healthSystems.CurrentHealth<=0)
+        if (healthSystems.CurrentHealth <= 0)
         {
             Playerdeath();
+            isDead = true;
+            SceneChangeManager.instance.SceneChangeFunction("Lose");
         }
-        #region Movements
-        //Inputs
-        var horizontal = Input.GetAxisRaw("Horizontal");
-        var vertical = Input.GetAxisRaw("Vertical");
-        //Movement Vectors
-        Vector3 move_horizontal = transform.right * horizontal;
-        Vector3 move_z = transform.forward * vertical;
-        Vector3 movedir = (move_horizontal + move_z).normalized * CurrentMoveSpeed * Time.deltaTime;
-        //Gravity
-     //   movedir.y = -7f * Time.deltaTime;
-        //Jump
-        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
+        if (!isDead)
         {
-            var _jump = jumpSpeed;
-            do
+            #region Movements
+            //Inputs
+            var horizontal = Input.GetAxisRaw("Horizontal");
+            var vertical = Input.GetAxisRaw("Vertical");
+            //Movement Vectors
+            Vector3 move_horizontal = transform.right * horizontal;
+            Vector3 move_z = transform.forward * vertical;
+            Vector3 movedir = (move_horizontal + move_z).normalized * CurrentMoveSpeed * Time.deltaTime;
+            //Gravity
+            //   movedir.y = -7f * Time.deltaTime;
+            //Jump
+            if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
             {
-                movedir.y = _jump;
-                _jump -= Time.deltaTime;
-            }   while (!characterController.isGrounded);
-        }
-        else
-        {
-            movedir += Physics.gravity * Time.deltaTime;
-        }
-        //Setting speed for animation
-        var magnitude = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;
-        dummySpeed = magnitude;
-        //Player Running
-        if (Input.GetKey(KeyCode.LeftShift)&&Stamina_Ref.Current_Stamina>0)
-        {
-            canRun = true;
-            Stamina_Ref.StopCoroutine(Stamina_Ref.Recover_Stamina(2));
-            CurrentMoveSpeed = RunningSpeed;
-            if (characterController.velocity.magnitude >= RunningSpeed)
-            {
-                Stamina_Ref.Current_Stamina -= 20 * Time.deltaTime;
+                var _jump = jumpSpeed;
+                do
+                {
+                    movedir.y = _jump;
+                    _jump -= Time.deltaTime;
+                } while (!characterController.isGrounded);
             }
-        }
-        else if(Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            canRun = false;
-            CurrentMoveSpeed = Speed;
-        }
-        if(Stamina_Ref.Current_Stamina <= Stamina_Ref.Max_Stamina&&!canRun)
-        {
-            Stamina_Ref.StartCoroutine(Stamina_Ref.Recover_Stamina(2));
-        }
-        if(Stamina_Ref.Current_Stamina <= 0)
-        {
-            CurrentMoveSpeed = Speed;
-        }
-        if (!canRun)
-        {
-            if (dummySpeed > 0.5f)
+            else
             {
-                dummySpeed = 0.5f;
+                movedir += Physics.gravity * Time.deltaTime;
             }
-        }
-        //CharacterController Move 
-        characterController.Move(movedir);
-        //Rotation of Player
-        transform.Rotate(0, Input.GetAxisRaw("MouseX") * XSensitivity * Time.deltaTime, 0);
+            //Setting speed for animation
+            var magnitude = new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude;
+            dummySpeed = magnitude;
+            //Player Running
+            if (Input.GetKey(KeyCode.LeftShift) && Stamina_Ref.Current_Stamina > 0)
+            {
+                canRun = true;
+                Stamina_Ref.StopCoroutine(Stamina_Ref.Recover_Stamina(2));
+                CurrentMoveSpeed = RunningSpeed;
+                if (characterController.velocity.magnitude >= RunningSpeed)
+                {
+                    Stamina_Ref.Current_Stamina -= 20 * Time.deltaTime;
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                canRun = false;
+                CurrentMoveSpeed = Speed;
+            }
+            if (Stamina_Ref.Current_Stamina <= Stamina_Ref.Max_Stamina && !canRun)
+            {
+                Stamina_Ref.StartCoroutine(Stamina_Ref.Recover_Stamina(2));
+            }
+            if (Stamina_Ref.Current_Stamina <= 0)
+            {
+                CurrentMoveSpeed = Speed;
+            }
+            if (!canRun)
+            {
+                if (dummySpeed > 0.5f)
+                {
+                    dummySpeed = 0.5f;
+                }
+            }
+            //CharacterController Move 
+            characterController.Move(movedir);
+            //Rotation of Player
+            transform.Rotate(0, Input.GetAxisRaw("MouseX") * XSensitivity * Time.deltaTime, 0);
 
-        float Xroattion = Input.GetAxis("MouseY") * YSensitivity * Time.deltaTime;
-        XRotation -= Xroattion;
-        XRotation = Mathf.Clamp(XRotation, -90, 90);
-        CameraTransform.localRotation = Quaternion.Euler(XRotation, 0, 0);
+            float Xroattion = Input.GetAxis("MouseY") * YSensitivity * Time.deltaTime;
+            XRotation -= Xroattion;
+            XRotation = Mathf.Clamp(XRotation, -90, 90);
+            CameraTransform.localRotation = Quaternion.Euler(XRotation, 0, 0);
 
-        #endregion
-        if (Input.GetAxis("Mouse ScrollWheel") > 0&& ElapsedTime > TimeBwtweenSwitching)
-        {
+            #endregion
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && ElapsedTime > TimeBwtweenSwitching)
+            {
                 if (selectedWeapon >= WeaponList.Count - 1)
                 {
                     selectedWeapon = 0;
@@ -181,27 +198,32 @@ public class PlayerController : MonoBehaviour
                 {
                     selectedWeapon++;
                 }
-            HolsterWeapon();
-            ElapsedTime = 0f;
-        }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && ElapsedTime > TimeBwtweenSwitching)
-        {
-          if (selectedWeapon <= 0)
-          {
-             selectedWeapon = WeaponList.Count - 1;
-          }
-          else
-          {
-             selectedWeapon--;
-          }
-            HolsterWeapon();
-            ElapsedTime = 0f;
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
+            if (Input.GetAxis("Mouse ScrollWheel") < 0 && ElapsedTime > TimeBwtweenSwitching)
+            {
+                if (selectedWeapon <= 0)
+                {
+                    selectedWeapon = WeaponList.Count - 1;
+                }
+                else
+                {
+                    selectedWeapon--;
+                }
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
+            else
+            {
+                ElapsedTime += Time.deltaTime;
+            }
+            BulletCountUpdate();
         }
         else
         {
-            ElapsedTime += Time.deltaTime;
+            WeaponList[selectedWeapon].SetActive(false);
         }
-        BulletCountUpdate();
     }
 
     private void BulletCountUpdate()

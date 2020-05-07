@@ -13,7 +13,7 @@ public class Boss_Death_SceneChange : MonoBehaviour
     {
         if(boss!=null)
         {
-            if (boss.isDead)
+            if (boss.GetComponent<HealthSystems>().CurrentHealth<=0)
             {
                 StartCoroutine(Boss_Death_SceneChange_Function());
             }

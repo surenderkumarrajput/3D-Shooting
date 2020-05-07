@@ -52,6 +52,10 @@ public class Melee : MonoBehaviour
             {
                 FindObjectOfType<AudioManager>().Play(Temp.gameObject.GetComponent<EnemyController>().ImpactSound);
             }
+            if (Temp.gameObject.GetComponent<Boss>() != null)
+            {
+                FindObjectOfType<AudioManager>().Play("BloodImpact");
+            }
         }
     }
     private void OnDrawGizmosSelected()
