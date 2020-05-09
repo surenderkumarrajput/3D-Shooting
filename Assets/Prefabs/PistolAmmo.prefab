@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 7966026377578907689}
   - component: {fileID: 3899766203746061305}
   - component: {fileID: 8415103647334052001}
+  - component: {fileID: 312015866560784542}
   m_Layer: 0
   m_Name: PistolAmmo
   m_TagString: Ammo
@@ -384,6 +385,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5060444177187149915, guid: e44bc5c8807b25a4ca69a1655e9850ed, type: 3}
+--- !u!114 &312015866560784542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401404045527710266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8daa790a861358e45bedf26536bb1e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Layer:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1 &6545084733760384043
 GameObject:
   m_ObjectHideFlags: 0

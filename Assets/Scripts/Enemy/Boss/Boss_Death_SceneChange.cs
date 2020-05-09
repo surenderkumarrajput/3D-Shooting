@@ -22,6 +22,6 @@ public class Boss_Death_SceneChange : MonoBehaviour
     IEnumerator Boss_Death_SceneChange_Function()
     {
         yield return new WaitForSeconds(3f);
-        SceneChangeManager.instance.SceneChangeFunction("Win");
+        SceneChangeManager.instance.SceneChangeFunction("WinStory");
     }
 }

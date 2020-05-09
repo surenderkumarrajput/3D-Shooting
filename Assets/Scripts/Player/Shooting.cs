@@ -62,7 +62,25 @@ public class Shooting : MonoBehaviour
         {
             if (hit.collider.gameObject.GetComponent<HealthSystems>()!=null)
             {
-                hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
+                if(hit.collider.gameObject.GetComponent<StunnSystem>() != null)
+                {
+                    if(hit.collider.gameObject.GetComponent<StunnSystem>().CurrentStunn!=0)
+                    {
+                        float Remaining_Stunn = hit.collider.gameObject.GetComponent<StunnSystem>().DecreaseStunn(weapons.Damage);
+                        if (Remaining_Stunn<0)
+                        {
+                            Remaining_Stunn = 0;
+                        }
+                    }
+                    else
+                    {
+                        hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
+                    }
+                }
+                else
+                {
+                    hit.collider.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapons.Damage);
+                }
             }
             if (hit.collider.gameObject.GetComponent<Boss>() != null)
             {

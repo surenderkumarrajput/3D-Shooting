@@ -24,4 +24,9 @@ public class EnergySystem : MonoBehaviour
         }
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, 100);
     }
+    public void DecreaseEnergy(float Health)
+    {
+        CurrentEnergy -= Health;
+        CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
+    }
 }

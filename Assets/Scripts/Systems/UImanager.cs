@@ -5,9 +5,10 @@ using UnityEngine.UI;
 public class UImanager : MonoBehaviour
 {
     public GameObject Inventory;
-    public Image DamageImage;
+    private GameObject playerController;
+    public GameObject PauseMenu;
 
-    GameObject playerController;
+    public Image DamageImage;
 
     public float AlphaMultiplier;
     float ElapsedTime=0f;
@@ -27,6 +28,7 @@ public class UImanager : MonoBehaviour
             playerController = GameObject.FindGameObjectWithTag("Player");
         }
         Alpha = DamageImage.color.a;
+        PauseMenu.SetActive(false);
     }
     void Update()
     {
@@ -37,6 +39,19 @@ public class UImanager : MonoBehaviour
         else
         {
             Inventory.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            bool isActive = PauseMenu.activeSelf;
+            if(isActive)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
+            PauseMenu.SetActive(!isActive);
         }
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
@@ -65,5 +80,14 @@ public class UImanager : MonoBehaviour
         ImageColorRef.a = Alpha;
         DamageImage.color = ImageColorRef;
     }
-   
+    public void ResumeButton(GameObject Go)
+    {
+        Go.SetActive(false);
+        Time.timeScale = 1f;
+    }
+    public void MainMenu()
+    {
+        SceneChangeManager.instance.SceneChangeFunction("Main");
+        Time.timeScale = 1f;
+    }
 }

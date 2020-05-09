@@ -15,8 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/AfterStory.unity
+    guid: fa384d285de11514d8b4349f7f8e4050
+  - enabled: 1
     path: Assets/Scenes/FinalLevel.unity
     guid: 7b97930cd298e5d48a5b5dee12c475fa
+  - enabled: 1
+    path: Assets/Scenes/WinStory.unity
+    guid: 6c338fe728761a748be521ac0e82d501
   - enabled: 1
     path: Assets/Scenes/Win.unity
     guid: 2a9876f4e6f89d144af6d9bc28617bfc

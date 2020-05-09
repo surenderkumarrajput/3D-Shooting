@@ -125059,6 +125059,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.53333336
+    functionName: Special_Attack_Energy
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.56666666
     functionName: Attack
     data: 
@@ -125071,13 +125078,6 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c,
       type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.56666666
-    functionName: Special_Attack_Energy
-    data: 
-    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

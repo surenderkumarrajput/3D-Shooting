@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -683,15 +683,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1478101970}
+  BG_Sprites:
+  - {fileID: 21300000, guid: 33faf121609b24a40843c79650bbfda7, type: 3}
+  - {fileID: 21300000, guid: 6c2d3317ff13c034b952a38653300672, type: 3}
+  - {fileID: 21300000, guid: f43bc5b51d08eec42a50772bb0580619, type: 3}
+  - {fileID: 21300000, guid: 804adde659dd71d4e9dd1236a32ca0c4, type: 3}
+  - {fileID: 21300000, guid: 49256d6d527971643aa2660eb77727a2, type: 3}
+  - {fileID: 21300000, guid: ac4ba697e259c404995db4b7f0bf5ab8, type: 3}
+  BG: {fileID: 786669771}
   sentences:
   - It is Story of a demon Hunter(Drake)..
-  - Whose Family is Killed by the god of Destruction
-  - Deceptor...
-  - To take his revenge,Drake is on a journey..
+  - Who killed many Demons.. but...
+  - his Family is Killed by the God of Destruction...
+  - 'Deceptor... '
+  - Drake is on a journey to hell ..
   - To Find Deceptor and to take his revenge...
+  - But to reach hell he need Oroborus... which opens portal to hell
+  - So he move towards Aura's Village
+  - In Search of Oroborus..
   waittime: 0.005
   Continue: {fileID: 685632950}
   Scenename: Game
+  CurrentSceneName:
+  - Story
+  - AfterStory
 --- !u!4 &1141479581
 Transform:
   m_ObjectHideFlags: 0
@@ -1848,7 +1863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -164}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 580, y: 59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7261250704593251007

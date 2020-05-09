@@ -33,9 +33,9 @@ public class SceneChangeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(Wait_Time);
         anim.SetTrigger("EndTransition");
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         SceneManager.UnloadSceneAsync(current_scene);
-        SceneManager.LoadScene(SceneName);
+        SceneManager.LoadSceneAsync(SceneName);
     }
     public void SoundPlay(string Soundname)
     {

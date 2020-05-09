@@ -47,7 +47,28 @@ public class Melee : MonoBehaviour
         Collider[] collider = Physics.OverlapSphere(Knife_pos.position, weapon.Range, Layers);
         foreach (var Temp in collider)
         {
-            Temp.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapon.Damage);
+            if (Temp.gameObject.GetComponent<HealthSystems>() != null)
+            {
+                if (Temp.gameObject.GetComponent<StunnSystem>() != null)
+                {
+                    if (Temp.gameObject.GetComponent<StunnSystem>().CurrentStunn != 0)
+                    {
+                        float Remaining_Stunn = Temp.gameObject.GetComponent<StunnSystem>().DecreaseStunn(weapon.Damage);
+                        if (Remaining_Stunn < 0)
+                        {
+                            Remaining_Stunn = 0;
+                        }
+                    }
+                    else
+                    {
+                        Temp.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapon.Damage);
+                    }
+                }
+                else
+                {
+                    Temp.gameObject.GetComponent<HealthSystems>().DecreaseHealth(weapon.Damage);
+                }
+            }
             if(Temp.gameObject.GetComponent<EnemyController>()!=null)
             {
                 FindObjectOfType<AudioManager>().Play(Temp.gameObject.GetComponent<EnemyController>().ImpactSound);

@@ -28766,6 +28766,7 @@ GameObject:
   - component: {fileID: 4032069400057638902}
   - component: {fileID: 3838636749040149046}
   - component: {fileID: 3834816491748932904}
+  - component: {fileID: -6348498142454295970}
   m_Layer: 0
   m_Name: Oroborus
   m_TagString: Oroborus
@@ -33437,6 +33438,22 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-6348498142454295970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4033380001543585452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f42f75d5002ec438c8fdaa6d0e58dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Layer:
+    serializedVersion: 2
+    m_Bits: 8192
+  Explosion: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
 --- !u!1 &4034160537370599853
 GameObject:
   m_ObjectHideFlags: 0

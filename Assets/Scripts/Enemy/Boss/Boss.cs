@@ -23,9 +23,13 @@ public class Boss : MonoBehaviour
     public PlayerController playerController;
     private HealthSystems HealthSystems;
     private EnergySystem EnergySystem;
+    private StunnSystem StunnSystem;
 
     public Image Health_Img;
     public Image Energy_Img;
+    public Image Stunn_Img;
+
+    public GameObject[] Object_Spawn;
 
     public Transform Right_Hand_Axe;
     public Transform Hips_Transform;
@@ -35,9 +39,11 @@ public class Boss : MonoBehaviour
     private Animator anim;
 
     private bool isSaid1=false;
+    private bool isSaid2 = false;
 
     [HideInInspector]
     public bool isDead = false;
+    private bool isStunn = false;
     void Start()
     {
         NavmeshAgent = GetComponent<NavMeshAgent>();
@@ -49,19 +55,41 @@ public class Boss : MonoBehaviour
         NavmeshAgent.speed = 9;
         NavmeshAgent.acceleration = NavmeshAgent.speed;
         EnergySystem = GetComponent<EnergySystem>();
+        StunnSystem = GetComponent<StunnSystem>();
     }
 
     void Update()
     {
         Health_Img.fillAmount = HealthSystems.CurrentHealth / HealthSystems.MaxHealth;
         Energy_Img.fillAmount = EnergySystem.CurrentEnergy / EnergySystem.MaxEnergy;
+        Stunn_Img.fillAmount = StunnSystem.CurrentStunn / StunnSystem.maxStunn;
+       
         if (HealthSystems.CurrentHealth <= 0)
         {
             isDead = true;
             anim.SetTrigger("Die");
             Destroy(gameObject, 2.6f);
         }
-        if (!isDead)
+        if (StunnSystem.CurrentStunn <= 0)
+        {
+            anim.SetBool("isStunn", true);
+            if(!isSaid2)
+            {
+                isSaid2 = true;
+                var rand = Random.Range(0,Object_Spawn.Length);
+                Instantiate(Object_Spawn[rand],transform.localPosition, Quaternion.identity);
+                FindObjectOfType<AudioManager>().Play("Stunn");
+            }
+            StunnSystem.StunnIncrease();
+            isStunn = true;
+        }
+        else
+        {
+            isSaid2 = false;
+            anim.SetBool("isStunn", false);
+            isStunn = false;
+        }
+        if (!isDead&&!isStunn)
         {
             #region AI
             switch (States)
@@ -141,7 +169,6 @@ public class Boss : MonoBehaviour
                 StartCoroutine(IdletoChase());
             }
             #endregion
-            
             anim.SetFloat("Speed", NavmeshAgent.velocity.sqrMagnitude,0.1f,Time.deltaTime);
         }
         else
@@ -166,7 +193,6 @@ public class Boss : MonoBehaviour
     }
     public void Attack_Effect_Function(GameObject Effect_Object)
     {
-       
         Instantiate(Effect_Object, Right_Hand_Axe.position, Quaternion.identity);
     }
     public void Special_Attack_Energy()

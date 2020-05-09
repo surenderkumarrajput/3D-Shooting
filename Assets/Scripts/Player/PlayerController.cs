@@ -42,12 +42,16 @@ public class PlayerController : MonoBehaviour
     private Inventory inventory;
     private HealthSystems healthSystems;
     private Stamina Stamina_Ref;
+    [HideInInspector]
     public WayPoint Waypoint_Ref;
     public Objectives Objectives_Ref;
     public List<Collider> DialogueSoundTriggers=new List<Collider>();
 
+
+    public GameObject Cam_Holder;
     private bool canRun;
     private bool isDead = false;
+    private bool isPlayed=false;
 
     void Start()
     {
@@ -61,18 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("Weapon")|| hit.gameObject.CompareTag("Medkits"))
-        {
-            var item = hit.gameObject.GetComponent<ItemScript>();
-            inventory.Add(item.item, item.item.Amount);
-            Destroy(hit.gameObject);
-        }
-        if(hit.gameObject.CompareTag("Ammo"))
-        {
-            var item = hit.gameObject.GetComponent<ItemScript>();
-            inventory.Add(item.item, item.item.Amount);
-            Destroy(hit.gameObject);
-        }
+      
         if(hit.gameObject.CompareTag("WayPoint"))
         {
             Destroy(hit.gameObject);
@@ -88,11 +81,6 @@ public class PlayerController : MonoBehaviour
             {
                 return;
             }
-        }
-        if(hit.gameObject.CompareTag("Oroborus"))
-        {
-            FindObjectOfType<DialogAudioManager>().Play("u survived till now but no longer");
-            SceneChangeManager.instance.SceneChangeFunction("FinalLevel");
         }
         for (int i = 0; i < DialogueSoundTriggers.Count; i++)
         {
@@ -188,6 +176,8 @@ public class PlayerController : MonoBehaviour
             CameraTransform.localRotation = Quaternion.Euler(XRotation, 0, 0);
 
             #endregion
+
+            #region Weapon Switching
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && ElapsedTime > TimeBwtweenSwitching)
             {
                 if (selectedWeapon >= WeaponList.Count - 1)
@@ -201,7 +191,7 @@ public class PlayerController : MonoBehaviour
                 HolsterWeapon();
                 ElapsedTime = 0f;
             }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0 && ElapsedTime > TimeBwtweenSwitching)
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && ElapsedTime > TimeBwtweenSwitching)
             {
                 if (selectedWeapon <= 0)
                 {
@@ -214,18 +204,65 @@ public class PlayerController : MonoBehaviour
                 HolsterWeapon();
                 ElapsedTime = 0f;
             }
+            else if(Input.GetKeyDown(KeyCode.Alpha1) && ElapsedTime > TimeBwtweenSwitching && selectedWeapon != 0)
+            {
+                selectedWeapon = 0;
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && ElapsedTime > TimeBwtweenSwitching && Cam_Holder.GetComponent<Transform>().transform.childCount>=3 && selectedWeapon!=1)
+            {
+                selectedWeapon = 1;
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && ElapsedTime > TimeBwtweenSwitching && selectedWeapon != 2)
+            {
+                selectedWeapon = 2;
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4) && ElapsedTime > TimeBwtweenSwitching && selectedWeapon != 3)
+            {
+                selectedWeapon = 3;
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5) && ElapsedTime > TimeBwtweenSwitching && selectedWeapon != 4)
+            {
+                selectedWeapon = 4;
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha6) && ElapsedTime > TimeBwtweenSwitching && selectedWeapon != 5)
+            {
+                selectedWeapon = 5;
+                HolsterWeapon();
+                ElapsedTime = 0f;
+            }
             else
             {
                 ElapsedTime += Time.deltaTime;
             }
+            #endregion
+
             BulletCountUpdate();
         }
         else
         {
             WeaponList[selectedWeapon].SetActive(false);
+            if(!isPlayed)
+            {
+                isPlayed = true;
+                FindObjectOfType<AudioManager>().Play("Death");
+            }
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(-90, transform.rotation.y, transform.rotation.z), 2 * Time.deltaTime); ;
         }
     }
-
+    public void AddtoInventory(Item item)
+    {
+        inventory.Add(item, item.Amount);
+    }
     private void BulletCountUpdate()
     {
         if(WeaponList[selectedWeapon].GetComponentInChildren<Shooting>()!=null)

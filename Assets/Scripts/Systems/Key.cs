@@ -7,10 +7,10 @@ public class Key : MonoBehaviour
 {
     private HealthSystems healthSystems;
     public WayPoint Waypoint_Ref;
+    public Vector3 Offset;
 
     public GameObject Key_Object;
     public GameObject WayPoint_Object;
-
 
     private bool isEnemyDead = false;
     private void Start()
@@ -27,7 +27,7 @@ public class Key : MonoBehaviour
     }
     public void Key_Spawn()
     {
-        GameObject go = Instantiate(Key_Object, GetComponent<EnemyController>().Centre.position, Quaternion.identity);
+        GameObject go = Instantiate(Key_Object, GetComponent<EnemyController>().Centre.position+Offset, Quaternion.identity);
         Waypoint_Ref.Target.Add(go.transform);
         Waypoint_Ref.i++;
         WayPoint_Object.SetActive(true);
